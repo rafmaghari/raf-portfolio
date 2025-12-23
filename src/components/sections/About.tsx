@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import Image from "next/image";
 import config from "@/config.json";
 
 const { about } = config;
@@ -37,8 +38,13 @@ const About = () => {
           </div>
           <div className="relative">
             <div className="aspect-square rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 p-1">
-              <div className="h-full w-full rounded-2xl bg-white dark:bg-gray-900 flex items-center justify-center">
-                <span className="text-6xl">{about.emoji}</span>
+              <div className="h-full w-full rounded-2xl overflow-hidden relative">
+                <Image
+                  src={about.image}
+                  alt="About me"
+                  fill
+                  className="object-cover"
+                />
               </div>
             </div>
           </div>

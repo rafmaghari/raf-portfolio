@@ -24,9 +24,9 @@
     "paragraphs": [
       "With over a decade of experience in software development, I've had the privilege of working on diverse projects that have shaped my expertise in full-stack development. My journey began with PHP and Laravel, and I've since expanded my skillset to embrace modern JavaScript frameworks and cloud technologies.",
       "I specialize in building scalable web applications, implementing robust backend systems, and creating intuitive user interfaces. My experience includes working with startups, enterprise clients, and everything in between.",
-      "I'm passionate about clean code, performance optimization, and staying current with industry best practices. When I'm not coding, I enjoy mentoring other developers and contributing to open-source projects."
+      "I'm passionate about clean code, performance optimization, and staying current with industry best practices. When I'm not coding, I enjoy mentoring other developers, building legos, and bonding with my family."
     ],
-    "emoji": "👨‍💻"
+    "image": "/about-me.jpg"
   },
   "skills": {
     "title": "Skills & Expertise",
