@@ -47,7 +47,7 @@ const Testimonials = () => {
                   </div>
                 </div>
                 <blockquote className="text-gray-600 dark:text-gray-300 italic">
-                  "{testimonial.content}"
+                &quot;{testimonial.content}&quot;
                 </blockquote>
               </motion.div>
             ))}

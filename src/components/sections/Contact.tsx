@@ -34,6 +34,7 @@ const Contact = () => {
       setStatus("success");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
+      console.log(error)
       setStatus("error");
     }
   };
