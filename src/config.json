@@ -1,0 +1,286 @@
+{
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "Rafael Maghari",
+    "title": "Fullstack Developer with 11 years of experience",
+    "description": "Crafting robust and scalable solutions with Laravel, NodeJS, React, Vue.js, Next.js, and DevOps expertise.",
+    "image": "/raf.png",
+    "imageAlt": "Rafael Maghari",
+    "ctaButtons": [
+      {
+        "text": "Get in Touch",
+        "href": "#contact",
+        "variant": "primary"
+      },
+      {
+        "text": "View My Work",
+        "href": "#portfolio",
+        "variant": "secondary"
+      }
+    ]
+  },
+  "about": {
+    "title": "About Me",
+    "paragraphs": [
+      "With over a decade of experience in software development, I've had the privilege of working on diverse projects that have shaped my expertise in full-stack development. My journey began with PHP and Laravel, and I've since expanded my skillset to embrace modern JavaScript frameworks and cloud technologies.",
+      "I specialize in building scalable web applications, implementing robust backend systems, and creating intuitive user interfaces. My experience includes working with startups, enterprise clients, and everything in between.",
+      "I'm passionate about clean code, performance optimization, and staying current with industry best practices. When I'm not coding, I enjoy mentoring other developers and contributing to open-source projects."
+    ],
+    "emoji": "👨‍💻"
+  },
+  "skills": {
+    "title": "Skills & Expertise",
+    "categories": [
+      {
+        "name": "Languages & Frameworks",
+        "skills": [
+          { "name": "PHP", "level": 95 },
+          { "name": "JavaScript", "level": 95 },
+          { "name": "ReactJS", "level": 90 },
+          { "name": "VueJS", "level": 95 },
+          { "name": "NextJS", "level": 90 },
+          { "name": "Node.js/Express", "level": 85 },
+          { "name": "Yii/CodeIgniter", "level": 85 }
+        ]
+      },
+      {
+        "name": "Laravel Ecosystem",
+        "skills": [
+          { "name": "Laravel Core", "level": 95 },
+          { "name": "Sanctum/Passport", "level": 95 },
+          { "name": "Horizon", "level": 90 },
+          { "name": "Cashier", "level": 85 },
+          { "name": "Telescope", "level": 90 },
+          { "name": "Forge", "level": 90 },
+          { "name": "Laravel Echo", "level": 85 }
+        ]
+      },
+      {
+        "name": "Cloud & DevOps",
+        "skills": [
+          { "name": "AWS (EC2, RDS, S3, Amplify, Route53)", "level": 90 },
+          { "name": "GCP (Buckets, VMs)", "level": 85 },
+          { "name": "Digital Ocean", "level": 90 },
+          { "name": "Vercel", "level": 90 },
+          { "name": "CloudFlare", "level": 85 },
+          { "name": "Docker", "level": 90 },
+          { "name": "CI/CD (Gitlab Pipeline, CodePipeline, Github Actions)", "level": 90 }
+        ]
+      },
+      {
+        "name": "Integrations & Services",
+        "skills": [
+          { "name": "Pusher", "level": 95 },
+          { "name": "Twilio", "level": 85 },
+          { "name": "Mailgun/Sendgrid", "level": 90 },
+          { "name": "Mailchimp", "level": 85 },
+          { "name": "Nylas", "level": 80 },
+          { "name": "Sentry/Flareio", "level": 90 }
+        ]
+      },
+      {
+        "name": "Development Tools",
+        "skills": [
+          { "name": "PHPStorm", "level": 95 },
+          { "name": "Visual Studio Code", "level": 95 },
+          { "name": "DataGrip", "level": 90 },
+          { "name": "Vim", "level": 85 },
+          { "name": "Tailwind CSS", "level": 95 },
+          { "name": "Bootstrap", "level": 90 }
+        ]
+      }
+    ]
+  },
+  "portfolio": {
+    "title": "Featured Projects",
+    "projects": [
+      {
+        "title": "GiftShark",
+        "description": "A gifting and donation platform enabling seamless gift-giving experiences. Built with real-time features and comprehensive mailing integrations.",
+        "image": "/project1.jpg",
+        "tech": ["Laravel", "React", "Inertia", "AWS", "S3", "Pusher", "MailChimp", "Forge"],
+        "link": "#",
+        "client": "Gifting/Donation Company"
+      },
+      {
+        "title": "DotReady",
+        "description": "Transportation company monitoring system for tracking driver apprehensions. Features real-time data updates and comprehensive reporting.",
+        "image": "/project2.jpg",
+        "tech": ["Laravel", "VueJS", "NodeJS", "Bootstrap"],
+        "link": "#",
+        "client": "Transportation Company"
+      },
+      {
+        "title": "Whittaker Properties",
+        "description": "Modern directory site with headless CMS integration for property listings. Built with server-side rendering for optimal SEO performance.",
+        "image": "/project3.jpg",
+        "tech": ["NextJS", "Vercel", "Sanity.io", "TailwindCSS"],
+        "link": "#",
+        "client": "Real Estate"
+      },
+      {
+        "title": "SmartScout Calculator",
+        "description": "Calculator tool for analyzing Amazon's latest low inventory data. Helps sellers make informed decisions about stock management.",
+        "image": "/project1.jpg",
+        "tech": ["NextJS", "AWS Amplify", "TailwindCSS"],
+        "link": "#",
+        "client": "E-commerce Tools"
+      },
+      {
+        "title": "PandaByte",
+        "description": "Modern landing page for a software solutions company. Features smooth animations and responsive design.",
+        "image": "/project2.jpg",
+        "tech": ["NextJS", "AWS Amplify", "TailwindCSS"],
+        "link": "#",
+        "client": "Software Company"
+      },
+      {
+        "title": "Podiem",
+        "description": "Comprehensive CRM platform for lead generation with real-time notifications and automated workflows. Part-time DevOps responsibilities included.",
+        "image": "/project3.jpg",
+        "tech": ["Laravel", "VueJS", "GCP", "Horizon", "Github Actions", "Pusher"],
+        "link": "#",
+        "client": "SaaS/CRM"
+      },
+      {
+        "title": "SugarAndFlour",
+        "description": "Upwork-like marketplace platform connecting customers with professional bakers. Features campaign management and real-time messaging.",
+        "image": "/project1.jpg",
+        "tech": ["Laravel", "VueJS", "Bootstrap", "Tailwind", "AWS", "S3", "Pusher", "Forge"],
+        "link": "#",
+        "client": "Marketplace"
+      },
+      {
+        "title": "Appertiser App",
+        "description": "Marketplace platform connecting farmers directly with clients. Streamlines the agricultural supply chain.",
+        "image": "/project2.jpg",
+        "tech": ["Laravel", "VueJS"],
+        "link": "#",
+        "client": "Agriculture Marketplace"
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "Client Testimonials",
+    "items": [
+      {
+        "name": "John Smith",
+        "role": "CTO, Tech Startup",
+        "content": "Rafael is an exceptional developer who consistently delivers high-quality work. His expertise in both frontend and backend development has been invaluable to our projects.",
+        "image": "/placeholder-avatar.jpg"
+      },
+      {
+        "name": "Sarah Johnson",
+        "role": "Product Manager, Enterprise Solutions",
+        "content": "Working with Rafael has been a great experience. His technical knowledge, attention to detail, and ability to solve complex problems make him a valuable asset to any team.",
+        "image": "/placeholder-avatar.jpg"
+      },
+      {
+        "name": "Michael Chen",
+        "role": "Founder, Digital Agency",
+        "content": "Rafael's deep understanding of modern web technologies and best practices has helped us deliver robust and scalable solutions to our clients. Highly recommended!",
+        "image": "/placeholder-avatar.jpg"
+      }
+    ]
+  },
+  "experience": {
+    "title": "Work Experience",
+    "items": [
+      {
+        "title": "Freelance Fullstack Developer",
+        "company": "Self-Employed / Various Clients",
+        "period": "2022 - Present",
+        "description": [
+          "GiftShark: Built gifting/donation platform with Laravel, React, Inertia, AWS, Pusher, MailChimp",
+          "DotReady: Developed transportation monitoring system with Laravel-Vue, NodeJS",
+          "Whittaker Properties: Created directory site with NextJS, Vercel, Sanity.io",
+          "SmartScout Calculator: Built Amazon inventory calculator with NextJS, AWS Amplify",
+          "PandaByte: Developed software company landing page with NextJS",
+          "Podiem: Built CRM for lead generation with Laravel, VueJS, GCP (Part-time DevOps)",
+          "SugarAndFlour: Created baker marketplace with Laravel, Vue, AWS",
+          "Appertiser App: Developed farmer marketplace with Laravel, Vue"
+        ]
+      },
+      {
+        "title": "Full-stack Developer",
+        "company": "REBISCO",
+        "period": "2019 - 2022",
+        "description": [
+          "Developed RDMS - Inventory Monitoring System with Collection using Laravel-VueJS",
+          "Built Cash Voucher - Approval System for departmental budgets with Laravel-VueJS",
+          "Worked with PHP, Javascript, VueJS, CodeIgniter tech stack",
+          "Implemented Laravel Sanctum/Passport, Horizon, Telescope, Flareio",
+          "Managed deployments with Gitlab, Gitlab Pipeline, and Docker"
+        ]
+      },
+      {
+        "title": "Team Lead",
+        "company": "ZMG IT (Startup)",
+        "period": "2018 - 2019",
+        "description": [
+          "Led development of Multi-tenant Ecommerce Site with Laravel-VueJS",
+          "Built Event Management System for large venue bookings with Laravel-VueJS, Flutter/Ionic",
+          "Managed team using PHP, Javascript, VueJS, Node, Express stack",
+          "Implemented Laravel ecosystem: Sanctum/Passport, Horizon, Telescope",
+          "Managed infrastructure on Digital Ocean with Gitlab Pipeline and Docker"
+        ]
+      },
+      {
+        "title": "Senior Web Developer",
+        "company": "RareJob",
+        "period": "2015 - 2018",
+        "description": [
+          "Developed Tutoring Website - Scheduling System for tutors and students",
+          "Built Internal CRM for department management",
+          "Worked extensively with Yii framework and Javascript",
+          "Collaborated with PHP, Javascript, VueJS, Node, Express tech stack"
+        ]
+      },
+      {
+        "title": "Assistant Programmer",
+        "company": "Solutionbase Corp",
+        "period": "2014 - 2015",
+        "description": [
+          "Developed A.I.M.S - Accounting, Inventory, Monitoring System",
+          "Worked with .NET and PHP technologies",
+          "Gained foundational experience with Yii framework",
+          "Collaborated with senior developers on enterprise solutions"
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "form": {
+      "fields": [
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "email",
+          "required": true
+        },
+        {
+          "name": "message",
+          "label": "Message",
+          "type": "textarea",
+          "rows": 5,
+          "required": true
+        }
+      ],
+      "submitButton": {
+        "text": "Send Message",
+        "loadingText": "Sending..."
+      }
+    },
+    "messages": {
+      "success": "Thank you for your message! I'll get back to you soon.",
+      "error": "Oops! Something went wrong. Please try again later."
+    }
+  }
+}
