@@ -13,7 +13,10 @@ const Experience = () => {
   });
 
   return (
-    <section id="experience" className="bg-white dark:bg-gray-900 py-20">
+    <section
+      id="experience"
+      className="border-b border-zinc-200/80 dark:border-zinc-800/80 bg-[#fafaf9] dark:bg-zinc-950"
+    >
       <div className="section-container">
         <motion.div
           ref={ref}
@@ -21,56 +24,37 @@ const Experience = () => {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="heading-secondary text-center mb-12">
+          <p className="section-label text-center">Career</p>
+          <h2 className="heading-secondary text-center mb-14">
             {config.experience.title}
           </h2>
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-1 bg-indigo-200 dark:bg-indigo-900" />
-
-            {/* Experience items */}
-            <div className="space-y-12">
-              {experiences.map((exp, index) => (
-                <motion.div
-                  key={exp.period}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={
-                    inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-                  }
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className={`relative flex items-start ${
-                    index % 2 === 0 ? "md:flex-row-reverse" : ""
-                  }`}
-                >
-                  {/* Timeline dot */}
-                  <div className="absolute left-0 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-indigo-600 dark:bg-indigo-500 rounded-full border-4 border-white dark:border-gray-900" />
-
-                  {/* Content */}
-                  <div
-                    className={`ml-6 md:ml-0 md:w-1/2 ${
-                      index % 2 === 0 ? "md:pl-8" : "md:pr-8"
-                    }`}
-                  >
-                    <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                        {exp.title}
-                      </h3>
-                      <p className="text-indigo-600 dark:text-indigo-400 font-medium mb-2">
-                        {exp.company}
-                      </p>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                        {exp.period}
-                      </p>
-                      <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2">
-                        {exp.description.map((item, i) => (
-                          <li key={i}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+          <div className="max-w-3xl mx-auto divide-y divide-zinc-200 dark:divide-zinc-800 border-t border-zinc-200 dark:border-zinc-800">
+            {experiences.map((exp, index) => (
+              <motion.div
+                key={exp.period + exp.title}
+                initial={{ opacity: 0, y: 12 }}
+                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+                transition={{ duration: 0.4, delay: index * 0.06 }}
+                className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 md:gap-8 py-10 first:pt-0"
+              >
+                <div>
+                  <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white">
+                    {exp.title}
+                  </h3>
+                  <p className="text-teal-700 dark:text-teal-400/90 font-medium text-sm mt-1">
+                    {exp.company}
+                  </p>
+                  <ul className="mt-4 space-y-2 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed list-disc list-outside pl-4 marker:text-zinc-400">
+                    {exp.description.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <p className="text-sm font-medium text-zinc-500 dark:text-zinc-500 tabular-nums md:text-right md:pt-0.5 shrink-0">
+                  {exp.period}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>

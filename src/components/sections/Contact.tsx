@@ -91,17 +91,40 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="bg-gray-50 dark:bg-gray-800 py-20">
+    <section
+      id="contact"
+      className="bg-[#fafaf9] dark:bg-zinc-950 border-b border-zinc-200/80 dark:border-zinc-800/80"
+    >
       <div className="section-container">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
-          className="max-w-2xl mx-auto"
+          className="max-w-xl mx-auto"
         >
-          <h2 className="heading-secondary text-center mb-12">{contact.title}</h2>
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <p className="section-label text-center">Contact</p>
+          <h2 className="heading-secondary text-center mb-4">{contact.title}</h2>
+          <p className="text-center text-zinc-600 dark:text-zinc-400 text-sm mb-10 max-w-md mx-auto">
+            Send a message and I&apos;ll get back to you as soon as I can.
+          </p>
+          {contact.email ? (
+            <p className="text-center mb-8">
+              <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-500 block mb-2">
+                {contact.emailLabel ?? "Email"}
+              </span>
+              <a
+                href={`mailto:${contact.email}`}
+                className="text-teal-700 dark:text-teal-400 font-medium hover:underline underline-offset-4"
+              >
+                {contact.email}
+              </a>
+            </p>
+          ) : null}
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 p-6 sm:p-8"
+          >
             {/* Web3Forms Honeypot - hidden checkbox that bots will check */}
             <input
               type="checkbox"
@@ -116,7 +139,7 @@ const Contact = () => {
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1.5"
               >
                 Name
               </label>
@@ -127,13 +150,13 @@ const Contact = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-2.5 border border-zinc-200 dark:border-zinc-700 rounded-xl bg-[#fafaf9] dark:bg-zinc-950 text-zinc-900 dark:text-white focus:ring-2 focus:ring-teal-500/40 focus:border-teal-500/50 transition-all duration-200"
               />
             </div>
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1.5"
               >
                 Email
               </label>
@@ -144,13 +167,13 @@ const Contact = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
+                className="w-full px-4 py-2.5 border border-zinc-200 dark:border-zinc-700 rounded-xl bg-[#fafaf9] dark:bg-zinc-950 text-zinc-900 dark:text-white focus:ring-2 focus:ring-teal-500/40 focus:border-teal-500/50 transition-all duration-200"
               />
             </div>
             <div>
               <label
                 htmlFor="message"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1.5"
               >
                 Message
               </label>
@@ -161,14 +184,14 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 rows={5}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none transition-all duration-200"
+                className="w-full px-4 py-2.5 border border-zinc-200 dark:border-zinc-700 rounded-xl bg-[#fafaf9] dark:bg-zinc-950 text-zinc-900 dark:text-white focus:ring-2 focus:ring-teal-500/40 focus:border-teal-500/50 resize-none transition-all duration-200"
               />
             </div>
             <div>
               <button
                 type="submit"
                 disabled={status === "submitting" || cooldown > 0}
-                className="w-full button-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full button-primary disabled:opacity-50 disabled:cursor-not-allowed rounded-xl"
               >
                 {status === "submitting"
                   ? contact.form.submitButton.loadingText

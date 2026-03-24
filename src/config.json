@@ -1,35 +1,43 @@
 {
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/rafael-maghari/",
+    "github": "https://github.com/rafmaghari"
+  },
   "hero": {
     "greeting": "Hi, I'm",
     "name": "Rafael Maghari",
+    "location": "Philippines",
     "title": "Fullstack Developer with 11 years of experience",
-    "description": "Crafting robust and scalable solutions with Laravel, NodeJS, React, Vue.js, Next.js, and DevOps expertise.",
-    "image": "/raf.png",
-    "imageAlt": "Rafael Maghari",
+    "roleTags": [
+      "Full-stack",
+      "Laravel",
+      "React & Vue",
+      "DevOps"
+    ],
+    "description": "Crafting robust and scalable solutions with Laravel, Node.js, React, Vue.js, Next.js, and cloud infrastructure.",
     "ctaButtons": [
       {
-        "text": "Get in Touch",
+        "text": "Get in touch",
         "href": "#contact",
         "variant": "primary"
       },
       {
-        "text": "View My Work",
+        "text": "View work",
         "href": "#portfolio",
         "variant": "secondary"
       }
     ]
   },
   "about": {
-    "title": "About Me",
+    "title": "About",
     "paragraphs": [
       "With over a decade of experience in software development, I've had the privilege of working on diverse projects that have shaped my expertise in full-stack development. My journey began with PHP and Laravel, and I've since expanded my skillset to embrace modern JavaScript frameworks and cloud technologies.",
       "I specialize in building scalable web applications, implementing robust backend systems, and creating intuitive user interfaces. My experience includes working with startups, enterprise clients, and everything in between.",
       "I'm passionate about clean code, performance optimization, and staying current with industry best practices. When I'm not coding, I enjoy mentoring other developers, building legos, and bonding with my family."
-    ],
-    "image": "/about-me.jpg"
+    ]
   },
   "skills": {
-    "title": "Skills & Expertise",
+    "title": "Tech stack",
     "categories": [
       {
         "name": "Languages & Frameworks",
@@ -92,7 +100,7 @@
     ]
   },
   "portfolio": {
-    "title": "Featured Projects",
+    "title": "Recent projects",
     "projects": [
       {
         "title": "GiftShark",
@@ -161,7 +169,7 @@
     ]
   },
   "testimonials": {
-    "title": "Client Testimonials",
+    "title": "Recommendations",
     "items": [
       {
         "name": "John Smith",
@@ -184,7 +192,7 @@
     ]
   },
   "experience": {
-    "title": "Work Experience",
+    "title": "Experience",
     "items": [
       {
         "title": "Freelance Fullstack Developer",
@@ -250,7 +258,9 @@
     ]
   },
   "contact": {
-    "title": "Get in Touch",
+    "title": "Get in touch",
+    "email": "",
+    "emailLabel": "Email",
     "form": {
       "fields": [
         {

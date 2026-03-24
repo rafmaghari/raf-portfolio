@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import Image from "next/image";
 import config from "@/config.json";
 
 const { about } = config;
@@ -14,39 +13,24 @@ const About = () => {
   });
 
   return (
-    <section id="about" className="bg-white dark:bg-gray-900 py-20">
+    <section
+      id="about"
+      className="border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/30"
+    >
       <div className="section-container">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+          className="max-w-2xl mx-auto"
         >
-          <div>
-            <h2 className="heading-secondary">{about.title}</h2>
+          <p className="section-label">Profile</p>
+          <h2 className="heading-secondary mb-8">{about.title}</h2>
+          <div className="space-y-5 text-zinc-600 dark:text-zinc-400 leading-relaxed">
             {about.paragraphs.map((paragraph, index) => (
-              <p
-                key={index}
-                className={`text-gray-600 dark:text-gray-300 ${
-                  index < about.paragraphs.length - 1 ? "mb-6" : ""
-                }`}
-              >
-                {paragraph}
-              </p>
+              <p key={index}>{paragraph}</p>
             ))}
-          </div>
-          <div className="relative">
-            <div className="aspect-square rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 p-1">
-              <div className="h-full w-full rounded-2xl overflow-hidden relative">
-                <Image
-                  src={about.image}
-                  alt="About me"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
           </div>
         </motion.div>
       </div>

@@ -9,6 +9,10 @@ const config: Config = {
   darkMode: "class",
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-dm)", "system-ui", "sans-serif"],
+        display: ["var(--font-syne)", "system-ui", "sans-serif"],
+      },
       colors: {
         primary: {
           50: "#f0f9ff",
