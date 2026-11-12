@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { usePortraitMotion } from "@/components/usePortraitMotion";
 import ProfileControls from "@/components/ProfileControls";
 import StageExtras from "@/components/StageExtras";
 import { NightSky, PortraitExtras, type Extra, type ExtraState } from "@/components/ProfileExtras";
@@ -21,9 +22,11 @@ export default function Hero() {
   const [glasses, setGlasses] = useState(0);
   const [cap, setCap] = useState(false);
   const [family, setFamily] = useState(false);
-  const [extras, setExtras] = useState<ExtraState>({headset: false, coffee: false, laptop: false, party: false, night: false, fireworks: false, cat: false, duck: false, balloons: false, snow: false, coat: false});
+  const [extras, setExtras] = useState<ExtraState>({headset: false, coffee: false, laptop: false, party: false, night: false, fireworks: false, cat: false, duck: false, balloons: false, snow: false, coat: false, roll: false, dvd: false});
   const toggleExtra = (key: Extra) => setExtras(current => ({...current, [key]: !current[key]}));
   const reduced = useReducedMotion();
+  const portraitRef = useRef<HTMLDivElement>(null);
+  usePortraitMotion(portraitRef, extras.roll, extras.dvd, reduced);
   const transition = reduced ? { duration: 0 } : { type: "spring" as const, duration: .5, bounce: .2 };
   const controls = <ProfileControls open={inventoryOpen} onOpenChange={setInventoryOpen} glasses={glasses} glassesName={glassesNames[glasses]} cap={cap} family={family} extras={extras} onGlasses={() => setGlasses(current => (current + 1) % 4)} onCap={() => setCap(current => !current)} onFamily={() => setFamily(current => !current)} onExtra={toggleExtra} />;
   return <section className={`profile-hero${extras.night ? " is-night" : ""}${inventoryOpen ? " inventory-open" : ""}`} aria-labelledby="profile-title">
@@ -35,7 +38,7 @@ export default function Hero() {
         <AnimatePresence>{family && <motion.div data-testid="family-backdrop" className="family-backdrop" initial={{opacity: 0, scale: reduced ? 1 : .97}} animate={{opacity: .24, scale: 1}} exit={{opacity: 0}} transition={reduced ? {duration: 0} : {duration: .5, delay: .25}}><Image src="/profile/family.webp" alt="" fill sizes="800px" /></motion.div>}</AnimatePresence>
         <AnimatePresence>{family && ["abey", "piyang", "sigi-boy"].map((name, index) => <motion.div key={name} className={`family-person family-${name}`} initial={{ opacity: 0, scale: reduced ? 1 : .94 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: reduced ? 1 : .96 }} transition={reduced ? { duration: 0 } : { duration: .35, delay: index * .08 }}><Image src={`/profile/${name}.webp`} alt="" fill sizes="300px" /></motion.div>)}</AnimatePresence>
         <StageExtras extras={extras} />
-        <div className="portrait" data-testid="portrait"><Image src="/profile/raf.webp" alt="Raf Maghari smiling" fill sizes="(max-width: 600px) 260px, 420px" priority />
+        <div ref={portraitRef} className="portrait" data-testid="portrait"><Image src="/profile/raf.webp" alt="Raf Maghari smiling" fill sizes="(max-width: 600px) 260px, 420px" priority />
           <PortraitExtras extras={extras} />
           <AnimatePresence mode="wait">{glasses !== 0 && <motion.div className="glasses-layer" key={glasses} data-testid="glasses-overlay" data-style={glassesNames[glasses]} initial={{ opacity: 0, y: !reduced && glasses === 3 ? -100 : 0 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={transition}><Glasses style={glasses}/></motion.div>}</AnimatePresence>
           <AnimatePresence>{cap && <motion.svg className="portrait-cap" data-testid="cap-overlay" viewBox="0 0 520 200" aria-hidden="true" initial={{opacity:0,y:reduced?0:-120}} animate={{opacity:1,y:0}} exit={{opacity:0,y:reduced?0:-30}} transition={transition}><path d="M63 153C70 69 143 14 262 14s182 51 192 139z" fill="#262626"/><path d="M63 153c118-23 267-23 391 0l45 20c9 6 1 17-10 17H43c-17 0-23-11-8-19z" fill="#171717"/><path d="M260 18v123" stroke="#a3a3a3" strokeWidth="3" opacity=".7"/><circle cx="260" cy="16" r="9" fill="#171717"/></motion.svg>}</AnimatePresence>
