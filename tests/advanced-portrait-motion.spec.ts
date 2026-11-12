@@ -22,7 +22,16 @@ test('roll returns home and DVD stays in bounds before returning home', async ({
   const home = (await portrait.boundingBox())!;
   for (let run = 0; run < 3; run++) {
     await toggle(page, 'Roll');
-    if (run === 0) { await page.waitForTimeout(300); await page.screenshot({path:info.outputPath('mid-roll.png')}); }
+    if (run === 0) {
+      await page.waitForTimeout(300);
+      const rolling = await portrait.evaluate(element => {
+        const matrix = new DOMMatrix(getComputedStyle(element).transform);
+        return { travel: matrix.e, rotation: Math.atan2(matrix.b, matrix.a) };
+      });
+      expect(rolling.travel).toBeGreaterThan(1);
+      expect(Math.abs(rolling.rotation)).toBeGreaterThan(.01);
+      await page.screenshot({path:info.outputPath('mid-roll.png')});
+    }
     await page.waitForTimeout(2400);
     closeTo((await portrait.boundingBox())!, home);
     await toggle(page, 'Roll');

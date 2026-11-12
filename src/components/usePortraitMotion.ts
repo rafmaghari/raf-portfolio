@@ -10,7 +10,8 @@ export function usePortraitMotion(portrait: RefObject<HTMLDivElement | null>, ro
     const element = portrait.current;
     if (!element || !roll) return;
     const rect = element.getBoundingClientRect();
-    const distance = Math.max(0, Math.min(100, window.innerWidth - rect.right - 8));
+    // The hero clips the outgoing wheel, so it can genuinely roll out of view.
+    const distance = Math.max(0, window.innerWidth - rect.left + rect.width);
     const scale = element.closest(".is-family") ? .78 : 1;
     const angle = distance / (rect.width / 2) * 180 / Math.PI;
     const animation = reduced
