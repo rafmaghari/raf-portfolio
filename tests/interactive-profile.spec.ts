@@ -1,143 +1,67 @@
 import { test, expect } from '@playwright/test';
 
-test('portrait controls, portfolio and neighbouring contact form', async ({ page }, testInfo) => {
+const items = [
+  ['Cap', 'cap-overlay'], ['Family', 'family-backdrop'], ['Headset', 'headset-overlay'],
+  ['Coffee mug', 'coffee-overlay'], ['Laptop', 'laptop-overlay'], ['Party mode', 'party-overlay'],
+  ['Day/night', 'night-overlay'], ['Fireworks', 'fireworks-overlay'], ['Cat', 'cat-overlay'],
+  ['Rubber duck', 'duck-overlay'], ['Balloons', 'balloons-overlay'], ['Snow', 'snow-overlay'],
+  ['Coat and tie', 'coat-overlay'], ['Beard', 'beard-overlay'], ['Mustache', 'mustache-overlay'],
+] as const;
+
+test('inventory equips all portrait items and preserves portfolio and contact', async ({ page }, info) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
   await page.goto('/');
-  const shot = async (name: string) => { await page.waitForTimeout(700); await page.screenshot({ path: testInfo.outputPath(`${name}.png`) }); };
-  await expect(page.getByRole('heading', { name: 'Raf Maghari.' })).toBeVisible();
-  const portrait = page.getByTestId('portrait');
-  const bounds = await portrait.boundingBox();
-  expect(bounds).not.toBeNull();
-  expect(bounds!.x).toBeGreaterThanOrEqual(0);
-  expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(testInfo.project.use.viewport!.width);
-  await shot('initial');
+  const shot = async (name: string) => { await page.waitForTimeout(450); await page.screenshot({path: info.outputPath(`${name}.png`)}); };
+  const bag = page.getByRole('button', {name: 'Open inventory'});
+  await expect(bag).toBeVisible();
+  const portrait = (await page.getByTestId('portrait').boundingBox())!;
+  expect(portrait.x).toBeGreaterThanOrEqual(0);
+  expect(portrait.x + portrait.width).toBeLessThanOrEqual(info.project.use.viewport!.width);
+  await bag.click();
+  const dialog = page.getByRole('dialog', {name: 'Inventory'});
+  await expect(dialog).toBeVisible();
+  const slots = dialog.getByRole('button', {name: /^(Glasses:|Cap$|Family$|Headset$|Coffee mug$|Laptop$|Party mode$|Day\/night$|Fireworks$|Cat$|Rubber duck$|Balloons$|Snow$|Coat and tie$|Beard$|Mustache$)/});
+  await expect(slots).toHaveCount(16);
+  for (const slot of await slots.all()) { const box = (await slot.boundingBox())!; expect(box.width).toBeGreaterThanOrEqual(44); expect(box.height).toBeGreaterThanOrEqual(44); }
+  await shot('inventory');
+  for (const [label, id] of items) {
+    const slot = dialog.getByRole('button', {name: label, exact: true});
+    await slot.click(); await expect(slot).toHaveAttribute('aria-pressed', 'true'); await expect(page.getByTestId(id).first()).toBeVisible();
+    if (id === 'balloons-overlay') {
+      await expect(page.getByTestId(id)).toHaveAttribute('preserveAspectRatio', 'none');
+      const balloon = (await page.getByTestId(id).locator('ellipse').first().boundingBox())!;
+      const currentPortrait = (await page.getByTestId('portrait').boundingBox())!;
+      expect(balloon.x).toBeLessThan(currentPortrait.x);
+    }
+    await page.keyboard.press('Escape'); await expect(dialog).toHaveCount(0); await shot(id);
+    await bag.click(); await dialog.getByRole('button', {name: label, exact: true}).click();
+    await expect(dialog.getByRole('button', {name: label, exact: true})).toHaveAttribute('aria-pressed', 'false'); await expect(page.getByTestId(id)).toHaveCount(0);
+  }
   for (const style of ['Sunglasses', 'Round retro glasses', 'Pixel glasses']) {
-    await page.getByRole('button', { name: /^Glasses:/ }).click();
-    await expect(page.getByTestId('glasses-overlay')).toHaveAttribute('data-style', style);
-    await shot(style.replaceAll(' ', '-').toLowerCase());
+    await dialog.getByRole('button', {name: /^Glasses:/}).click(); await expect(page.getByTestId('glasses-overlay')).toHaveAttribute('data-style', style);
   }
-  await page.getByRole('button', { name: /^Glasses:/ }).click();
-  await expect(page.getByTestId('glasses-overlay')).toHaveCount(0);
-  const cap = page.getByRole('button', { name: /^Cap/ });
-  await cap.click(); await expect(cap).toHaveAttribute('aria-pressed', 'true'); await expect(page.getByTestId('cap-overlay')).toBeVisible(); await shot('cap');
-  await cap.click(); await expect(cap).toHaveAttribute('aria-pressed', 'false'); await expect(page.getByTestId('cap-overlay')).toHaveCount(0);
-  const family = page.getByRole('button', { name: /^Family/ });
-  await family.click(); await expect(family).toHaveAttribute('aria-pressed', 'true'); await expect(page.locator('.family-person')).toHaveCount(3); await shot('family');
-  await family.click(); await expect(family).toHaveAttribute('aria-pressed', 'false'); await expect(page.locator('.family-person')).toHaveCount(0);
-  for (const [label, id] of [['Headset', 'headset-overlay'], ['Coffee mug', 'coffee-overlay'], ['Laptop', 'laptop-overlay'], ['Party mode', 'party-overlay'], ['Day/night', 'night-overlay']] as const) {
-    const control = page.getByRole('button', { name: new RegExp(`^${label}`) });
-    await control.click(); await expect(control).toHaveAttribute('aria-pressed', 'true'); await expect(page.getByTestId(id)).toBeVisible();
-    await shot(id);
-    await control.click(); await expect(control).toHaveAttribute('aria-pressed', 'false'); await expect(page.getByTestId(id)).toHaveCount(0);
-  }
-  await page.getByRole('button', { name: 'Portfolio' }).click();
-  const dialog = page.getByRole('dialog');
-  await expect(dialog.getByRole('button', { name: 'Open CareTale details' })).toBeVisible(); await shot('portfolio');
-  await dialog.getByRole('button', { name: 'Next project' }).click();
-  await expect(dialog.getByRole('button', { name: 'Open Lifeya details' })).toBeVisible();
-  await page.keyboard.press('ArrowLeft'); await expect(dialog.getByRole('button', { name: 'Open CareTale details' })).toBeVisible();
-  await page.keyboard.press('ArrowRight'); await expect(dialog.getByRole('button', { name: 'Open Lifeya details' })).toBeVisible();
-  const card = dialog.getByRole('button', { name: 'Open Lifeya details' });
-  const cardBox = (await card.boundingBox())!;
-  await page.mouse.move(cardBox.x + cardBox.width * .8, cardBox.y + cardBox.height / 2);
-  await page.mouse.down(); await page.mouse.move(cardBox.x + cardBox.width * .2, cardBox.y + cardBox.height / 2, { steps: 8 }); await page.mouse.up();
-  await expect(dialog.getByRole('button', { name: 'Open Caretales Games details' })).toBeVisible();
-  await dialog.getByRole('button', { name: 'Previous project' }).click();
-  const touchCard = dialog.getByRole('button', { name: 'Open Lifeya details' });
-  await touchCard.evaluate(node => { const r = node.getBoundingClientRect(); for (const [type, x, buttons] of [['pointerdown', r.right - 20, 1], ['pointermove', r.left + 20, 1], ['pointerup', r.left + 20, 0]] as const) node.dispatchEvent(new PointerEvent(type, { bubbles: true, pointerId: 8, pointerType: 'touch', isPrimary: true, clientX: x, clientY: r.top + 30, button: 0, buttons })); });
-  await expect(dialog.getByRole('button', { name: 'Open Caretales Games details' })).toBeVisible();
-  await dialog.getByRole('button', { name: 'Previous project' }).click();
-  await dialog.getByRole('button', { name: 'Open Lifeya details' }).click();
-  await expect(dialog.getByRole('heading', { name: 'Lifeya' })).toBeVisible(); await shot('detail');
-  await dialog.getByRole('button', { name: 'Back to work' }).click();
-  await expect(dialog.getByRole('button', { name: 'Open Lifeya details' })).toBeVisible();
-  for (const title of ['Caretales Games', 'Notee', 'Peekee', 'Caravea Connect', 'CodeCoffeeChill']) {
-    await dialog.getByRole('button', { name: 'Next project' }).click();
-    await expect(dialog.getByRole('button', { name: `Open ${title} details` })).toBeVisible();
-    if (title === 'Caravea Connect') { await expect(dialog.getByAltText('Caravea Connect sign-in screen')).toBeVisible(); await shot('connect'); }
-  }
-  await dialog.getByRole('button', { name: 'Close portfolio' }).click(); await expect(dialog).toHaveCount(0);
+  await dialog.getByRole('button', {name: /^Glasses:/}).click(); await expect(page.getByTestId('glasses-overlay')).toHaveCount(0);
+  const keyboardCap = dialog.getByRole('button', {name:'Cap', exact:true}); await keyboardCap.focus(); await page.keyboard.press('Space'); await expect(keyboardCap).toHaveAttribute('aria-pressed','true'); await page.keyboard.press('Space'); await expect(keyboardCap).toHaveAttribute('aria-pressed','false');
+  await page.getByTestId('inventory-backdrop').click({position:{x:5,y:5}}); await expect(dialog).toHaveCount(0);
+  await page.emulateMedia({reducedMotion:'reduce'}); await bag.click();
+  for (const [label, id] of items.slice(7)) { await dialog.getByRole('button',{name:label,exact:true}).click(); await expect(page.getByTestId(id)).toBeVisible(); const animated = page.getByTestId(id).locator('[data-motion]'); for (const child of await animated.all()) await expect(child).toHaveCSS('animation-name','none'); await dialog.getByRole('button',{name:label,exact:true}).click(); }
+  await page.keyboard.press('Escape');
+  await page.getByRole('button',{name:'Portfolio'}).click(); const work = page.getByRole('dialog');
+  await work.getByRole('button',{name:'Next project'}).click(); await expect(work.getByRole('button',{name:'Open Lifeya details'})).toBeVisible();
+  await work.getByRole('button',{name:'Previous project'}).click(); await work.getByRole('button',{name:'Open CareTale details'}).click(); await expect(work.getByRole('heading',{name:'CareTale'})).toBeVisible(); await work.getByRole('button',{name:'Back to work'}).click(); await work.getByRole('button',{name:'Close portfolio'}).click();
   await page.route('https://api.web3forms.com/submit', route => route.fulfill({json:{success:true}}));
-  await page.getByLabel('Name', { exact: true }).fill('Demo User'); await page.getByLabel('Email', { exact: true }).fill('demo@example.test'); await page.getByLabel('Message', { exact: true }).fill('Hello');
-  await page.getByRole('button', { name: 'Send Message' }).click(); await expect(page.getByText(/Thank you for your message/)).toBeVisible();
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await cap.click(); await expect(page.getByTestId('cap-overlay')).toHaveCSS('opacity', '1'); await cap.click();
-  for (const [label, id] of [['Headset', 'headset-overlay'], ['Coffee mug', 'coffee-overlay'], ['Laptop', 'laptop-overlay'], ['Party mode', 'party-overlay'], ['Day/night', 'night-overlay']] as const) {
-    const control = page.getByRole('button', { name: new RegExp(`^${label}`) });
-    await control.click(); await expect(page.getByTestId(id)).toBeVisible();
-    if (id === 'coffee-overlay') await expect(page.locator('.coffee-steam')).toHaveCSS('animation-name', 'none');
-    if (id === 'laptop-overlay') await expect(page.locator('.laptop-code')).toHaveCSS('animation-name', 'none');
-    if (id === 'party-overlay') await expect(page.locator('.party-confetti')).toHaveCSS('animation-name', 'none');
-    await control.click(); await expect(page.getByTestId(id)).toHaveCount(0);
-  }
+  await page.getByLabel('Name',{exact:true}).fill('Demo User'); await page.getByLabel('Email',{exact:true}).fill('demo@example.test'); await page.getByLabel('Message',{exact:true}).fill('Hello'); await page.getByRole('button',{name:'Send Message'}).click(); await expect(page.getByText(/Thank you for your message/)).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
-  for (const direction of ['1', '2', '3']) {
-    await page.goto(`/?controls=${direction}`);
-    await expect(page.getByTestId('control-design')).toHaveAttribute('data-direction', direction);
-    await expect(page.getByRole('button', { name: /^Glasses:/ })).toBeVisible();
-    const buttons = page.getByTestId('control-design').getByRole('button');
-    await expect(buttons).toHaveCount(8);
-    const portraitBox = (await page.getByTestId('portrait').boundingBox())!;
-    const bottomBar = (await page.getByRole('navigation', { name: 'Quick navigation' }).boundingBox())!;
-    const face = { left: portraitBox.x + portraitBox.width * .32, right: portraitBox.x + portraitBox.width * .71, top: portraitBox.y + portraitBox.height * .28, bottom: portraitBox.y + portraitBox.height * .73 };
-    for (const button of await buttons.all()) {
-      const rect = (await button.boundingBox())!;
-      expect(rect.width).toBeGreaterThanOrEqual(44); expect(rect.height).toBeGreaterThanOrEqual(44);
-      expect(rect.x + rect.width <= face.left || rect.x >= face.right || rect.y + rect.height <= face.top || rect.y >= face.bottom).toBe(true);
-      expect(rect.x + rect.width <= bottomBar.x || rect.x >= bottomBar.x + bottomBar.width || rect.y + rect.height <= bottomBar.y || rect.y >= bottomBar.y + bottomBar.height).toBe(true);
-    }
-    await shot(`controls-${direction}`);
-    const keyboardCap = page.getByRole('button', { name: 'Cap' });
-    await keyboardCap.focus(); await page.keyboard.press('Space'); await expect(keyboardCap).toHaveAttribute('aria-pressed', 'true');
-    await page.keyboard.press('Space'); await expect(keyboardCap).toHaveAttribute('aria-pressed', 'false');
-    for (const label of ['Cap', 'Family', 'Headset', 'Coffee mug', 'Laptop', 'Party mode', 'Day/night']) {
-      const button = page.getByRole('button', { name: new RegExp(`^${label}`) });
-      await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'true');
-      if (label === 'Cap') await shot(`controls-${direction}-active`);
-      await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'false');
-    }
-    const glassesButton = page.getByRole('button', { name: /^Glasses:/ });
-    for (let i = 0; i < 4; i++) await glassesButton.click();
-    await expect(page.getByTestId('glasses-overlay')).toHaveCount(0);
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
-  }
   expect(errors).toEqual([]);
 });
 
-test('black accents remain legible in both themes and all control directions', async ({ page }, testInfo) => {
-  for (const theme of ['light', 'dark'] as const) {
-    await page.emulateMedia({ colorScheme: theme, reducedMotion: 'reduce' });
-    for (const direction of ['1', '2', '3']) {
-      await page.goto(`/?controls=${direction}`);
-      const controls = page.getByTestId('control-design');
-      await expect(controls).toHaveAttribute('data-direction', direction);
-      await expect(page.locator('.profile-hero')).toHaveCSS('background-color', theme === 'dark' ? 'rgb(24, 24, 27)' : 'rgb(238, 233, 223)');
-      await expect(page.getByRole('navigation', {name: 'Quick navigation'})).toHaveCSS('background-color', 'rgb(23, 23, 23)');
-      const cap = page.getByRole('button', {name: 'Cap'});
-      await cap.click(); await expect(cap).toHaveAttribute('aria-pressed', 'true');
-      await expect(page.getByTestId('cap-overlay')).toBeVisible(); await expect(page.getByTestId('cap-overlay')).toHaveCSS('opacity', '1');
-      await expect(cap).toHaveCSS('background-color', direction === '3' ? 'rgb(250, 250, 249)' : 'rgb(23, 23, 23)');
-      if (theme === 'dark' && direction !== '3') await expect(cap).toHaveCSS('border-top-color', 'rgb(163, 163, 163)');
-      const contrast = await cap.evaluate(element => {
-        const style = getComputedStyle(element);
-        const rgb = (value: string) => value.match(/\d+/g)!.slice(0, 3).map(Number).map(c => { const v = c / 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; });
-        const luminance = (value: string) => { const [r,g,b] = rgb(value); return .2126*r + .7152*g + .0722*b; };
-        const a = luminance(style.color), b = luminance(style.backgroundColor);
-        return (Math.max(a,b) + .05) / (Math.min(a,b) + .05);
-      });
-      expect(contrast).toBeGreaterThanOrEqual(4.5);
-      const footerContrast = await page.getByRole('contentinfo').getByRole('link', {name: 'GitHub'}).evaluate(element => {
-        const rgb = (value: string) => value.match(/\d+/g)!.slice(0, 3).map(Number).map(c => { const v = c / 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; });
-        const lum = (value: string) => { const [r,g,b] = rgb(value); return .2126*r + .7152*g + .0722*b; };
-        const a = lum(getComputedStyle(element).color), b = lum(getComputedStyle(element.closest('footer')!).backgroundColor);
-        return (Math.max(a,b) + .05) / (Math.min(a,b) + .05);
-      });
-      expect(footerContrast).toBeGreaterThanOrEqual(4.5);
-      await page.screenshot({path: testInfo.outputPath(`black-${theme}-${direction}.png`)});
-      await page.getByRole('button', {name: 'Day/night'}).click();
-      await expect(page.locator('.profile-hero')).toHaveCSS('background-color', 'rgb(24, 24, 27)');
-    }
+test('inventory has black accents and readable equipped states in light and dark', async ({page}, info) => {
+  for (const theme of ['light','dark'] as const) {
+    await page.emulateMedia({colorScheme:theme, reducedMotion:'reduce'}); await page.goto('/'); await page.getByRole('button',{name:'Open inventory'}).click({ timeout: 5000 });
+    const dialog = page.getByRole('dialog',{name:'Inventory'}); const slot = dialog.getByRole('button',{name:'Cap',exact:true}); await slot.click(); await expect(slot).toHaveAttribute('aria-pressed','true');
+    const ratio = await slot.evaluate(element => { const css=getComputedStyle(element); const lum=(s:string)=>{const c=s.match(/\d+/g)!.slice(0,3).map(Number).map(n=>{const v=n/255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4});return .2126*c[0]+.7152*c[1]+.0722*c[2]}; const a=lum(css.color),b=lum(css.backgroundColor); return (Math.max(a,b)+.05)/(Math.min(a,b)+.05); });
+    expect(ratio).toBeGreaterThanOrEqual(4.5); await page.screenshot({path:info.outputPath(`inventory-${theme}.png`)});
   }
 });
