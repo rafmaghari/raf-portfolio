@@ -4,6 +4,7 @@ import Skills from "@/components/sections/Skills";
 import Portfolio from "@/components/sections/Portfolio";
 import Experience from "@/components/sections/Experience";
 import Contact from "@/components/sections/Contact";
+import ProfilePortfolio from "@/components/ProfilePortfolio";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Portfolio />
       <Experience />
       <Contact />
+      <ProfilePortfolio />
     </div>
   );
 }
