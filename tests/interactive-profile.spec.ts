@@ -29,7 +29,7 @@ test('portrait controls, portfolio and neighbouring contact form', async ({ page
   for (const [label, id] of [['Headset', 'headset-overlay'], ['Coffee mug', 'coffee-overlay'], ['Laptop', 'laptop-overlay'], ['Party mode', 'party-overlay'], ['Day/night', 'night-overlay']] as const) {
     const control = page.getByRole('button', { name: new RegExp(`^${label}`) });
     await control.click(); await expect(control).toHaveAttribute('aria-pressed', 'true'); await expect(page.getByTestId(id)).toBeVisible();
-    if (id === 'night-overlay') await expect(control).toHaveCSS('color', 'rgb(33, 59, 56)');
+    if (id === 'night-overlay') await expect(control).toHaveCSS('color', 'rgb(22, 60, 50)');
     await shot(id);
     await control.click(); await expect(control).toHaveAttribute('aria-pressed', 'false'); await expect(page.getByTestId(id)).toHaveCount(0);
   }
@@ -74,5 +74,35 @@ test('portrait controls, portfolio and neighbouring contact form', async ({ page
     await control.click(); await expect(page.getByTestId(id)).toHaveCount(0);
   }
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  for (const direction of ['1', '2', '3']) {
+    await page.goto(`/?controls=${direction}`);
+    await expect(page.getByTestId('control-design')).toHaveAttribute('data-direction', direction);
+    await expect(page.getByRole('button', { name: /^Glasses:/ })).toBeVisible();
+    const buttons = page.getByTestId('control-design').getByRole('button');
+    await expect(buttons).toHaveCount(8);
+    const portraitBox = (await page.getByTestId('portrait').boundingBox())!;
+    const bottomBar = (await page.getByRole('navigation', { name: 'Quick navigation' }).boundingBox())!;
+    const face = { left: portraitBox.x + portraitBox.width * .32, right: portraitBox.x + portraitBox.width * .71, top: portraitBox.y + portraitBox.height * .28, bottom: portraitBox.y + portraitBox.height * .73 };
+    for (const button of await buttons.all()) {
+      const rect = (await button.boundingBox())!;
+      expect(rect.width).toBeGreaterThanOrEqual(44); expect(rect.height).toBeGreaterThanOrEqual(44);
+      expect(rect.x + rect.width <= face.left || rect.x >= face.right || rect.y + rect.height <= face.top || rect.y >= face.bottom).toBe(true);
+      expect(rect.x + rect.width <= bottomBar.x || rect.x >= bottomBar.x + bottomBar.width || rect.y + rect.height <= bottomBar.y || rect.y >= bottomBar.y + bottomBar.height).toBe(true);
+    }
+    await shot(`controls-${direction}`);
+    const keyboardCap = page.getByRole('button', { name: 'Cap' });
+    await keyboardCap.focus(); await page.keyboard.press('Space'); await expect(keyboardCap).toHaveAttribute('aria-pressed', 'true');
+    await page.keyboard.press('Space'); await expect(keyboardCap).toHaveAttribute('aria-pressed', 'false');
+    for (const label of ['Cap', 'Family', 'Headset', 'Coffee mug', 'Laptop', 'Party mode', 'Day/night']) {
+      const button = page.getByRole('button', { name: new RegExp(`^${label}`) });
+      await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'true');
+      if (label === 'Cap') await shot(`controls-${direction}-active`);
+      await button.click(); await expect(button).toHaveAttribute('aria-pressed', 'false');
+    }
+    const glassesButton = page.getByRole('button', { name: /^Glasses:/ });
+    for (let i = 0; i < 4; i++) await glassesButton.click();
+    await expect(page.getByTestId('glasses-overlay')).toHaveCount(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  }
   expect(errors).toEqual([]);
 });
