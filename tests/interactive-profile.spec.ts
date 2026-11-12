@@ -26,6 +26,13 @@ test('portrait controls, portfolio and neighbouring contact form', async ({ page
   const family = page.getByRole('button', { name: /^Family/ });
   await family.click(); await expect(family).toHaveAttribute('aria-pressed', 'true'); await expect(page.locator('.family-person')).toHaveCount(3); await shot('family');
   await family.click(); await expect(family).toHaveAttribute('aria-pressed', 'false'); await expect(page.locator('.family-person')).toHaveCount(0);
+  for (const [label, id] of [['Headset', 'headset-overlay'], ['Coffee mug', 'coffee-overlay'], ['Laptop', 'laptop-overlay'], ['Party mode', 'party-overlay'], ['Day/night', 'night-overlay']] as const) {
+    const control = page.getByRole('button', { name: new RegExp(`^${label}`) });
+    await control.click(); await expect(control).toHaveAttribute('aria-pressed', 'true'); await expect(page.getByTestId(id)).toBeVisible();
+    if (id === 'night-overlay') await expect(control).toHaveCSS('color', 'rgb(33, 59, 56)');
+    await shot(id);
+    await control.click(); await expect(control).toHaveAttribute('aria-pressed', 'false'); await expect(page.getByTestId(id)).toHaveCount(0);
+  }
   await page.getByRole('button', { name: 'Portfolio' }).click();
   const dialog = page.getByRole('dialog');
   await expect(dialog.getByRole('button', { name: 'Open CareTale details' })).toBeVisible(); await shot('portfolio');
@@ -58,6 +65,14 @@ test('portrait controls, portfolio and neighbouring contact form', async ({ page
   await page.getByRole('button', { name: 'Send Message' }).click(); await expect(page.getByText(/Thank you for your message/)).toBeVisible();
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await cap.click(); await expect(page.getByTestId('cap-overlay')).toHaveCSS('opacity', '1'); await cap.click();
+  for (const [label, id] of [['Headset', 'headset-overlay'], ['Coffee mug', 'coffee-overlay'], ['Laptop', 'laptop-overlay'], ['Party mode', 'party-overlay'], ['Day/night', 'night-overlay']] as const) {
+    const control = page.getByRole('button', { name: new RegExp(`^${label}`) });
+    await control.click(); await expect(page.getByTestId(id)).toBeVisible();
+    if (id === 'coffee-overlay') await expect(page.locator('.coffee-steam')).toHaveCSS('animation-name', 'none');
+    if (id === 'laptop-overlay') await expect(page.locator('.laptop-code')).toHaveCSS('animation-name', 'none');
+    if (id === 'party-overlay') await expect(page.locator('.party-confetti')).toHaveCSS('animation-name', 'none');
+    await control.click(); await expect(page.getByTestId(id)).toHaveCount(0);
+  }
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   expect(errors).toEqual([]);
 });

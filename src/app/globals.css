@@ -2,7 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-.profile-hero { background: #eee9df; color: #213b38; overflow: hidden; }
+.profile-hero { position: relative; background: #eee9df; color: #213b38; overflow: hidden; }
+.profile-hero.is-night { background: #173239; color: #f8f1df; }
+.profile-day-sun { position: absolute; width: 58px; right: 4%; top: 18px; opacity: .5; pointer-events: none; }
+.profile-night-sky { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, #142933 0%, #294b4a 100%); }
+.profile-night-sky svg { width: 100%; height: 100%; }
+.profile-hero.is-night .profile-copy, .profile-hero.is-night .profile-hint { color: #d6e2d9; }
+.profile-hero.is-night .profile-intro h1 span { color: #e4a280; }
 .profile-hero-inner { position: relative; max-width: 1440px; margin: auto; min-height: 690px; padding: 70px 6%; display: grid; grid-template-columns: 1fr minmax(300px, 500px) 1fr; align-items: center; gap: 18px; }
 .profile-intro, .profile-controls { position: relative; z-index: 3; }
 .profile-intro > p:first-child { font-size: 18px; margin-bottom: 8px; }
@@ -19,6 +25,18 @@
 .glasses-layer { position: absolute; left: 33.5%; top: 35.5%; width: 35.5%; z-index: 2; }
 .profile-glasses { width: 100%; display: block; }
 .portrait-cap { position: absolute; left: 26%; top: 5%; width: 48%; z-index: 2; }
+.extra-headset, .extra-party { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
+.extra-party svg { width: 100%; height: 100%; }
+.extra-coffee { position: absolute; right: 15%; bottom: 8%; width: 25%; z-index: 5; pointer-events: none; }
+.extra-laptop { position: absolute; bottom: -5%; left: 15%; width: 70%; z-index: 4; pointer-events: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .coffee-steam { animation: steam-rise 2s ease-in-out infinite alternate; }
+  .laptop-code { animation: code-scroll 4s linear infinite; }
+  .party-confetti { animation: confetti-drift 1.5s ease-in-out infinite alternate; }
+  @keyframes steam-rise { from { transform: translateY(4px); opacity: .5; } to { transform: translateY(-6px); opacity: 1; } }
+  @keyframes code-scroll { from { transform: translateY(0); } to { transform: translateY(-58px); } }
+  @keyframes confetti-drift { from { transform: translateY(-7px); } to { transform: translateY(10px); } }
+}
 .family-backdrop { position: absolute; inset: 3% -25%; border-radius: 50%; overflow: hidden; z-index: -2; filter: blur(7px); }
 .family-backdrop img { object-fit: cover; }
 .family-person { position: absolute; z-index: 1; width: 43%; height: 62%; bottom: 10%; }
@@ -31,7 +49,7 @@
 .profile-controls { justify-self: end; width: 190px; }
 .profile-controls > p:first-child { font-family: var(--font-syne), sans-serif; font-weight: 700; font-size: 17px; line-height: 1.3; margin-bottom: 16px; }
 .profile-chips { display: grid; gap: 8px; }
-.profile-chips button { min-height: 44px; padding: 10px 14px; background: #fcfaf5; border: 1px solid #d5d8cb; border-radius: 999px; display: flex; gap: 9px; align-items: center; text-align: left; font-size: 13px; font-weight: 600; }
+.profile-chips button { color: #213b38; min-height: 44px; padding: 10px 14px; background: #fcfaf5; border: 1px solid #d5d8cb; border-radius: 999px; display: flex; gap: 9px; align-items: center; text-align: left; font-size: 13px; font-weight: 600; }
 .profile-chips button[aria-pressed=true] { background: #d8e6dc; border-color: #71978b; }
 .profile-chips small { margin-left: auto; font-size: 10px; color: #53675f; }
 .profile-hint { margin-top: 15px; color: #586c64; font-size: 12px; line-height: 1.5; }
@@ -64,7 +82,7 @@
 .work-detail a { display: inline-block; margin-top: 18px; text-decoration: underline; text-underline-offset: 4px; font-weight: 600; }
 .profile-hero button:focus-visible, .profile-bottom-nav :focus-visible, .work-dialog :focus-visible { outline: 3px solid #bd6449; outline-offset: 3px; }
 @media (max-width: 900px) { .profile-hero-inner { grid-template-columns: 1fr 1.4fr; min-height: 610px; } .profile-controls { grid-column: 1 / -1; justify-self: center; text-align: center; width: auto; } .profile-chips { display: flex; flex-wrap: wrap; justify-content: center; } .profile-chips button { min-width: 110px; } .profile-hint { display: none; } .profile-stage { height: 420px; } }
-@media (max-width: 600px) { .profile-hero-inner { display: flex; flex-direction: column; padding: 38px 20px 42px; gap: 0; min-height: 0; text-align: center; } .profile-intro h1 { font-size: 42px; } .profile-intro > p:first-child { font-size: 15px; } .profile-role { margin-top: 12px; font-size: 15px; } .profile-copy { margin: 8px auto 0; font-size: 13px; line-height: 1.5; } .profile-discover { display: none; } .profile-stage { width: min(100%, 320px); height: 320px; margin: 0 auto; } .portrait { width: 76%; } .family-abey { left: -2%; } .family-piyang { right: -2%; } .family-sigi-boy { right: -4%; } .profile-controls > p:first-child { margin-bottom: 10px; font-size: 14px; } .profile-chips { gap: 6px; } .profile-chips button { min-width: 0; padding: 9px 11px; font-size: 12px; } .profile-chips small { font-size: 9px; } .work-card { min-height: 220px; padding: 20px; } .work-panel { padding: 22px; } }
+@media (max-width: 600px) { .profile-day-sun { width: 38px; top: 12px; right: 16px; } .profile-hero-inner { display: flex; flex-direction: column; padding: 38px 20px 42px; gap: 0; min-height: 0; text-align: center; } .profile-intro h1 { font-size: 42px; } .profile-intro > p:first-child { font-size: 15px; } .profile-role { margin-top: 12px; font-size: 15px; } .profile-copy { margin: 8px auto 0; font-size: 13px; line-height: 1.5; } .profile-discover { display: none; } .profile-stage { width: min(100%, 320px); height: 320px; margin: 0 auto; } .portrait { width: 76%; } .family-abey { left: -2%; } .family-piyang { right: -2%; } .family-sigi-boy { right: -4%; } .profile-controls > p:first-child { margin-bottom: 10px; font-size: 14px; } .profile-chips { gap: 6px; } .profile-chips button { min-width: 0; padding: 9px 11px; font-size: 12px; } .profile-chips small { font-size: 9px; } .work-card { min-height: 220px; padding: 20px; } .work-panel { padding: 22px; } }
 @media (prefers-reduced-motion: reduce) { .profile-hero *, .work-dialog * { scroll-behavior: auto !important; } }
 
 @layer base {

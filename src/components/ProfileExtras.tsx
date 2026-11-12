@@ -1,0 +1,24 @@
+"use client";
+
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+
+export type Extra = "headset" | "coffee" | "laptop" | "party" | "night";
+export type ExtraState = Record<Extra, boolean>;
+
+export function NightSky({ enabled }: { enabled: boolean }) {
+  const reduced = useReducedMotion();
+  return <AnimatePresence>{enabled && <motion.div className="profile-night-sky" data-testid="night-overlay" aria-hidden="true" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{duration: reduced ? 0 : .25}}>
+    <svg viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice"><g fill="#f6e0a2"><circle cx="98" cy="77" r="2"/><circle cx="278" cy="151" r="3"/><circle cx="403" cy="68" r="2"/><circle cx="597" cy="131" r="2"/><circle cx="860" cy="70" r="3"/><circle cx="1021" cy="152" r="2"/><circle cx="1212" cy="75" r="2"/><circle cx="1364" cy="192" r="3"/><circle cx="93" cy="317" r="2"/><circle cx="1320" cy="374" r="2"/><path d="M940 70a38 38 0 1 0 47 46 32 32 0 0 1-47-46z"/></g><g opacity=".55" stroke="#e7c789" strokeWidth="2"><path d="M550 0v60m340-60v84"/><path d="M530 73q20-28 40 0zM870 97q20-28 40 0z" fill="#e7c789"/></g></svg>
+  </motion.div>}</AnimatePresence>;
+}
+
+export function PortraitExtras({ extras }: { extras: ExtraState }) {
+  const reduced = useReducedMotion();
+  const ease = { duration: reduced ? 0 : .25 };
+  return <>
+    <AnimatePresence>{extras.headset && <motion.svg className="extra-headset" data-testid="headset-overlay" viewBox="0 0 1254 1254" aria-hidden="true" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} transition={ease}><path d="M363 484V401C363 217 472 105 627 105s264 112 264 296v83" fill="none" stroke="#172f30" strokeWidth="35" strokeLinecap="round"/><path d="M363 453v-52c0-184 109-296 264-296s264 112 264 296v52" fill="none" stroke="#809a91" strokeWidth="8"/><rect x="329" y="405" width="62" height="169" rx="29" fill="#172f30"/><rect x="863" y="405" width="62" height="169" rx="29" fill="#172f30"/><rect x="345" y="429" width="26" height="119" rx="13" fill="#d5a56e"/><rect x="883" y="429" width="26" height="119" rx="13" fill="#d5a56e"/></motion.svg>}</AnimatePresence>
+    <AnimatePresence>{extras.coffee && <motion.svg className="extra-coffee" data-testid="coffee-overlay" viewBox="0 0 230 250" aria-hidden="true" initial={{opacity:0,y:reduced?0:20}} animate={{opacity:1,y:0}} exit={{opacity:0,y:reduced?0:15}} transition={ease}><g className="coffee-steam" fill="none" stroke="#f9f1e0" strokeWidth="8" strokeLinecap="round"><path d="M65 68c-18-17 15-26 0-45"/><path d="M101 67c-18-17 15-26 0-45"/><path d="M137 68c-18-17 15-26 0-45"/></g><path d="M159 105h21c31 0 33 53-8 53h-16" fill="none" stroke="#f7f1e5" strokeWidth="13"/><path d="M28 87h145l-12 91c-2 19-13 27-32 27H71c-19 0-30-8-32-27z" fill="#f7f1e5" stroke="#344a43" strokeWidth="5"/><text x="100" y="140" textAnchor="middle" fill="#294d45" fontSize="15" fontWeight="700" fontFamily="sans-serif">CODE COFFEE</text><text x="100" y="157" textAnchor="middle" fill="#294d45" fontSize="13" fontWeight="700" fontFamily="sans-serif">&amp; CHILL</text></motion.svg>}</AnimatePresence>
+    <AnimatePresence>{extras.laptop && <motion.svg className="extra-laptop" data-testid="laptop-overlay" viewBox="0 0 500 300" aria-hidden="true" initial={{opacity:0,y:reduced?0:80}} animate={{opacity:1,y:0}} exit={{opacity:0,y:reduced?0:50}} transition={ease}><defs><clipPath id="laptop-screen-clip"><rect x="53" y="33" width="394" height="205" rx="8"/></clipPath></defs><rect x="34" y="15" width="432" height="243" rx="18" fill="#293a39"/><rect x="53" y="33" width="394" height="205" rx="8" fill="#112927"/><g clipPath="url(#laptop-screen-clip)"><g className="laptop-code" fill="none" strokeLinecap="round" strokeWidth="8"><path d="M86 70h70m18 0h75M86 99h34m21 0h113m22 0h52M110 128h85m22 0h115M110 157h55m22 0h55M86 186h58m20 0h113M86 215h70m18 0h75M86 244h34m21 0h113" stroke="#b8d9bf"/><path d="M272 70h54M275 157h95M303 186h57" stroke="#e3b179"/></g></g><path d="M5 258h490l-25 26H30z" fill="#aebdb4"/><path d="M183 258h134l-9 10H192z" fill="#6b8278"/></motion.svg>}</AnimatePresence>
+    <AnimatePresence>{extras.party && <motion.div className="extra-party" data-testid="party-overlay" aria-hidden="true" initial={{opacity:0,scale:reduced?1:.95}} animate={{opacity:1,scale:1}} exit={{opacity:0}} transition={ease}><svg viewBox="0 0 1254 1254"><path d="M478 216 605 14l117 202z" fill="#db8264" stroke="#653f38" strokeWidth="9"/><path d="m520 154 149-48M503 186l184-54" stroke="#f6d9a6" strokeWidth="13"/><circle cx="605" cy="14" r="17" fill="#f5d28f"/><g className="party-confetti" strokeLinecap="round" strokeWidth="12"><path d="M170 166l18 20M999 123l-19 25M227 315l24-5M1020 316l-23-6" stroke="#e7a966"/><path d="M320 107l16 12M928 248l-19 14M158 430l16 17" stroke="#ecb6a5"/><path d="M870 85l-17 18M298 241l13 17M1091 431l-17 14" stroke="#82b7a3"/></g></svg></motion.div>}</AnimatePresence>
+  </>;
+}
