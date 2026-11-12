@@ -1,99 +1,47 @@
 "use client";
 
-import { motion } from "framer-motion";
-import config from "@/config.json";
+import Image from "next/image";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useState } from "react";
+import ProfileControls from "@/components/ProfileControls";
+import StageExtras from "@/components/StageExtras";
+import { NightSky, PortraitExtras, type Extra, type ExtraState } from "@/components/ProfileExtras";
 
-const { hero, links } = config;
+const glassesNames = ["Real glasses", "Sunglasses", "Round retro glasses", "Pixel glasses"];
 
-const roleLine =
-  hero.roleTags?.join(" \\ ") ?? hero.title;
-
-const extraCtas: {
-  text: string;
-  href: string;
-  variant: "primary" | "secondary" | "ghost";
-}[] = [];
-
-if (links?.linkedin) {
-  extraCtas.push({
-    text: "LinkedIn",
-    href: links.linkedin,
-    variant: "ghost",
-  });
-}
-if (links?.github) {
-  extraCtas.push({
-    text: "GitHub",
-    href: links.github,
-    variant: "ghost",
-  });
+function Glasses({ style }: { style: number }) {
+  if (style === 0) return null;
+  if (style === 3) return <svg viewBox="0 0 440 130" aria-hidden="true" className="profile-glasses"><path fill="#171717" d="M0 20h180v20h80V20h180v43h-20v26h-20v20H280V89h-20V60h-80v29h-20v20H40V89H20V63H0z"/><path fill="#fff" d="M25 30h36v10H25zm36 10h36v10H61zm221-10h36v10h-36zm36 10h36v10h-36z"/></svg>;
+  if (style === 2) return <svg viewBox="0 0 440 130" aria-hidden="true" className="profile-glasses"><g fill="#8b4c30" fillOpacity=".12" stroke="#613a28" strokeWidth="10"><circle cx="102" cy="65" r="55"/><circle cx="338" cy="65" r="55"/><path fill="none" d="M157 60q63-35 126 0M45 54L0 42m395 12 45-12"/></g></svg>;
+  return <svg viewBox="0 0 440 130" aria-hidden="true" className="profile-glasses"><path fill="#202628" stroke="#101719" strokeWidth="8" d="M8 26q80-15 165 0l14 17h66l14-17q85-15 165 0l-12 57q-6 31-43 32h-60q-39 0-47-36l-6-18h-48l-6 18q-8 36-47 36h-60Q66 114 60 83z"/><path d="M48 42h82m176 0h82" stroke="#a5c7c4" strokeOpacity=".55" strokeWidth="5"/></svg>;
 }
 
-const buttonClass = (variant: string) => {
-  if (variant === "primary") return "button-primary";
-  if (variant === "ghost") return "button-ghost";
-  return "button-secondary";
-};
-
-const Hero = () => {
-  return (
-    <section className="border-b border-zinc-200/80 dark:border-zinc-800/80 bg-[#fafaf9] dark:bg-zinc-950">
-      <div className="section-container w-full py-16 sm:py-24">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45 }}
-          className="max-w-2xl mx-auto text-center"
-        >
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-2">
-            {hero.greeting}
-          </p>
-          <h1 className="heading-primary mb-4">{hero.name}</h1>
-          {hero.location ? (
-            <p className="text-sm font-medium text-zinc-600 dark:text-zinc-300 mb-4">
-              {hero.location}
-            </p>
-          ) : null}
-          <p className="text-base sm:text-lg text-teal-700 dark:text-teal-400/90 font-medium mb-6">
-            {roleLine}
-          </p>
-          <p className="text-zinc-600 dark:text-zinc-400 text-base leading-relaxed mb-10">
-            {hero.description}
-          </p>
-          <div className="flex flex-wrap gap-2 sm:gap-3 justify-center">
-            {config.contact?.email ? (
-              <a
-                href={`mailto:${config.contact.email}`}
-                className="button-primary"
-              >
-                Send email
-              </a>
-            ) : null}
-            {hero.ctaButtons.map((button) => (
-              <a
-                key={button.text}
-                href={button.href}
-                className={buttonClass(button.variant)}
-              >
-                {button.text}
-              </a>
-            ))}
-            {extraCtas.map((button) => (
-              <a
-                key={button.text}
-                href={button.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={buttonClass(button.variant)}
-              >
-                {button.text}
-              </a>
-            ))}
-          </div>
-        </motion.div>
+export default function Hero() {
+  const [inventoryOpen, setInventoryOpen] = useState(false);
+  const [glasses, setGlasses] = useState(0);
+  const [cap, setCap] = useState(false);
+  const [family, setFamily] = useState(false);
+  const [extras, setExtras] = useState<ExtraState>({headset: false, coffee: false, laptop: false, party: false, night: false, fireworks: false, cat: false, duck: false, balloons: false, snow: false, coat: false});
+  const toggleExtra = (key: Extra) => setExtras(current => ({...current, [key]: !current[key]}));
+  const reduced = useReducedMotion();
+  const transition = reduced ? { duration: 0 } : { type: "spring" as const, duration: .5, bounce: .2 };
+  const controls = <ProfileControls open={inventoryOpen} onOpenChange={setInventoryOpen} glasses={glasses} glassesName={glassesNames[glasses]} cap={cap} family={family} extras={extras} onGlasses={() => setGlasses(current => (current + 1) % 4)} onCap={() => setCap(current => !current)} onFamily={() => setFamily(current => !current)} onExtra={toggleExtra} />;
+  return <section className={`profile-hero${extras.night ? " is-night" : ""}${inventoryOpen ? " inventory-open" : ""}`} aria-labelledby="profile-title">
+    {!extras.night && <svg className="profile-day-sun" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="21" fill="#dcaf6b"/><g stroke="#dcaf6b" strokeWidth="4" strokeLinecap="round"><path d="M50 5v13M50 82v13M5 50h13M82 50h13M18 18l9 9M73 73l9 9M82 18l-9 9M27 73l-9 9"/></g></svg>}
+    <NightSky enabled={extras.night} />
+    <div className="profile-hero-inner">
+      <div className="profile-intro"><p>Hi, I&apos;m</p><h1 id="profile-title">Raf Maghari<span>.</span></h1><p className="profile-role">Developer, maker &amp; family man.</p><p className="profile-copy">I build thoughtful digital things, with a little curiosity and a lot of coffee.</p><a href="#about" className="profile-discover">More about me <span aria-hidden="true">↓</span></a></div>
+      <div className={`profile-stage${family ? " is-family" : ""}`} aria-label="Interactive portrait of Raf">
+        <AnimatePresence>{family && <motion.div data-testid="family-backdrop" className="family-backdrop" initial={{opacity: 0, scale: reduced ? 1 : .97}} animate={{opacity: .24, scale: 1}} exit={{opacity: 0}} transition={reduced ? {duration: 0} : {duration: .5, delay: .25}}><Image src="/profile/family.webp" alt="" fill sizes="800px" /></motion.div>}</AnimatePresence>
+        <AnimatePresence>{family && ["abey", "piyang", "sigi-boy"].map((name, index) => <motion.div key={name} className={`family-person family-${name}`} initial={{ opacity: 0, scale: reduced ? 1 : .94 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: reduced ? 1 : .96 }} transition={reduced ? { duration: 0 } : { duration: .35, delay: index * .08 }}><Image src={`/profile/${name}.webp`} alt="" fill sizes="300px" /></motion.div>)}</AnimatePresence>
+        <StageExtras extras={extras} />
+        <div className="portrait" data-testid="portrait"><Image src="/profile/raf.webp" alt="Raf Maghari smiling" fill sizes="(max-width: 600px) 260px, 420px" priority />
+          <PortraitExtras extras={extras} />
+          <AnimatePresence mode="wait">{glasses !== 0 && <motion.div className="glasses-layer" key={glasses} data-testid="glasses-overlay" data-style={glassesNames[glasses]} initial={{ opacity: 0, y: !reduced && glasses === 3 ? -100 : 0 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={transition}><Glasses style={glasses}/></motion.div>}</AnimatePresence>
+          <AnimatePresence>{cap && <motion.svg className="portrait-cap" data-testid="cap-overlay" viewBox="0 0 520 200" aria-hidden="true" initial={{opacity:0,y:reduced?0:-120}} animate={{opacity:1,y:0}} exit={{opacity:0,y:reduced?0:-30}} transition={transition}><path d="M63 153C70 69 143 14 262 14s182 51 192 139z" fill="#262626"/><path d="M63 153c118-23 267-23 391 0l45 20c9 6 1 17-10 17H43c-17 0-23-11-8-19z" fill="#171717"/><path d="M260 18v123" stroke="#a3a3a3" strokeWidth="3" opacity=".7"/><circle cx="260" cy="16" r="9" fill="#171717"/></motion.svg>}</AnimatePresence>
+        </div>
       </div>
-    </section>
-  );
-};
-
-export default Hero;
+      {controls}
+    </div>
+  </section>;
+}

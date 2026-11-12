@@ -41,7 +41,7 @@ const Experience = () => {
                   <h3 className="font-display text-lg font-bold text-zinc-900 dark:text-white">
                     {exp.title}
                   </h3>
-                  <p className="text-teal-700 dark:text-teal-400/90 font-medium text-sm mt-1">
+                  <p className="text-zinc-900 dark:text-zinc-100 font-medium text-sm mt-1">
                     {exp.company}
                   </p>
                   <ul className="mt-4 space-y-2 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed list-disc list-outside pl-4 marker:text-zinc-400">
@@ -50,7 +50,7 @@ const Experience = () => {
                     ))}
                   </ul>
                 </div>
-                <p className="text-sm font-medium text-zinc-500 dark:text-zinc-500 tabular-nums md:text-right md:pt-0.5 shrink-0">
+                <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400 tabular-nums md:text-right md:pt-0.5 shrink-0">
                   {exp.period}
                 </p>
               </motion.div>

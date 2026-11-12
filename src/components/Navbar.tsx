@@ -22,7 +22,6 @@ const Navbar = () => {
     { name: "About", href: "#about" },
     { name: "Tech stack", href: "#skills" },
     { name: "Projects", href: "#portfolio" },
-    { name: "Recommendations", href: "#testimonials" },
     { name: "Experience", href: "#experience" },
     { name: "Contact", href: "#contact" },
   ];
@@ -43,7 +42,7 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-xs font-medium uppercase tracking-wider text-zinc-600 dark:text-zinc-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
+                className="text-xs font-medium uppercase tracking-wider text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white transition-colors"
               >
                 {item.name}
               </Link>

@@ -12,6 +12,9 @@
 
 # testing
 /coverage
+/.playwright-browsers/
+/.local-tools/
+/test-results/
 
 # next.js
 /.next/

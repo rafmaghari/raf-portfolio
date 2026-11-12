@@ -52,7 +52,7 @@ const Footer = () => {
               <a
                 key={link.name}
                 href={link.url}
-                className="text-zinc-500 hover:text-teal-600 dark:text-zinc-500 dark:hover:text-teal-400 transition-colors"
+                className="text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
               >

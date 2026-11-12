@@ -110,12 +110,12 @@ const Contact = () => {
           </p>
           {contact.email ? (
             <p className="text-center mb-8">
-              <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-500 block mb-2">
+              <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 block mb-2">
                 {contact.emailLabel ?? "Email"}
               </span>
               <a
                 href={`mailto:${contact.email}`}
-                className="text-teal-700 dark:text-teal-400 font-medium hover:underline underline-offset-4"
+                className="text-zinc-900 dark:text-zinc-100 font-medium hover:underline underline-offset-4"
               >
                 {contact.email}
               </a>
@@ -150,7 +150,7 @@ const Contact = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2.5 border border-zinc-200 dark:border-zinc-700 rounded-xl bg-[#fafaf9] dark:bg-zinc-950 text-zinc-900 dark:text-white focus:ring-2 focus:ring-teal-500/40 focus:border-teal-500/50 transition-all duration-200"
+                className="w-full px-4 py-2.5 border border-zinc-200 dark:border-zinc-700 rounded-xl bg-[#fafaf9] dark:bg-zinc-950 text-zinc-900 dark:text-white focus:ring-2 focus:ring-zinc-500/40 focus:border-zinc-500/50 transition-all duration-200"
               />
             </div>
             <div>
@@ -167,7 +167,7 @@ const Contact = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2.5 border border-zinc-200 dark:border-zinc-700 rounded-xl bg-[#fafaf9] dark:bg-zinc-950 text-zinc-900 dark:text-white focus:ring-2 focus:ring-teal-500/40 focus:border-teal-500/50 transition-all duration-200"
+                className="w-full px-4 py-2.5 border border-zinc-200 dark:border-zinc-700 rounded-xl bg-[#fafaf9] dark:bg-zinc-950 text-zinc-900 dark:text-white focus:ring-2 focus:ring-zinc-500/40 focus:border-zinc-500/50 transition-all duration-200"
               />
             </div>
             <div>
@@ -184,7 +184,7 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 rows={5}
-                className="w-full px-4 py-2.5 border border-zinc-200 dark:border-zinc-700 rounded-xl bg-[#fafaf9] dark:bg-zinc-950 text-zinc-900 dark:text-white focus:ring-2 focus:ring-teal-500/40 focus:border-teal-500/50 resize-none transition-all duration-200"
+                className="w-full px-4 py-2.5 border border-zinc-200 dark:border-zinc-700 rounded-xl bg-[#fafaf9] dark:bg-zinc-950 text-zinc-900 dark:text-white focus:ring-2 focus:ring-zinc-500/40 focus:border-zinc-500/50 resize-none transition-all duration-200"
               />
             </div>
             <div>
@@ -204,7 +204,7 @@ const Contact = () => {
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-green-600 dark:text-green-400 text-center"
+                className="text-zinc-900 dark:text-zinc-100 text-center"
               >
                 {contact.messages.success}
               </motion.p>
