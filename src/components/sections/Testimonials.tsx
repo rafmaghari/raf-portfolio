@@ -38,7 +38,7 @@ const Testimonials = () => {
                 className="relative rounded-2xl border border-zinc-200/90 dark:border-zinc-800 bg-[#fafaf9] dark:bg-zinc-950/50 p-7 sm:p-8"
               >
                 <span
-                  className="absolute top-6 left-6 font-display text-5xl leading-none text-teal-600/20 dark:text-teal-400/15 select-none"
+                  className="absolute top-6 left-6 font-display text-5xl leading-none text-zinc-900/20 dark:text-zinc-100/15 select-none"
                   aria-hidden
                 >
                   &ldquo;
@@ -50,7 +50,7 @@ const Testimonials = () => {
                   <cite className="not-italic font-semibold text-zinc-900 dark:text-white text-sm">
                     {testimonial.name}
                   </cite>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-500 mt-1">
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
                     {testimonial.role}
                   </p>
                 </footer>

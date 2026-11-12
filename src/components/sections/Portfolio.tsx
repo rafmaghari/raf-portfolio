@@ -35,13 +35,13 @@ const Portfolio = () => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
                 transition={{ duration: 0.45, delay: index * 0.05 }}
-                className="group rounded-2xl border border-zinc-200/90 dark:border-zinc-800 bg-[#fafaf9] dark:bg-zinc-950/50 overflow-hidden hover:border-teal-500/30 dark:hover:border-teal-500/25 transition-colors"
+                className="group rounded-2xl border border-zinc-200/90 dark:border-zinc-800 bg-[#fafaf9] dark:bg-zinc-950/50 overflow-hidden hover:border-zinc-600/50 dark:hover:border-zinc-400/50 transition-colors"
               >
                 <div className="p-6 sm:p-7">
-                  <p className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-500 mb-2">
+                  <p className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">
                     {project.client}
                   </p>
-                  <h3 className="font-display text-xl font-bold text-zinc-900 dark:text-white mb-3 group-hover:text-teal-700 dark:group-hover:text-teal-400 transition-colors">
+                  <h3 className="font-display text-xl font-bold text-zinc-900 dark:text-white mb-3 group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition-colors">
                     {project.title}
                   </h3>
                   <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mb-5">
@@ -64,7 +64,7 @@ const Portfolio = () => {
                   </div>
                   <a
                     href={project.link}
-                    className="inline-flex items-center text-sm font-medium text-teal-700 dark:text-teal-400 hover:underline underline-offset-4"
+                    className="inline-flex items-center text-sm font-medium text-zinc-900 dark:text-zinc-100 hover:underline underline-offset-4"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

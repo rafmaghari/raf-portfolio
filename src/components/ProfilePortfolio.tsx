@@ -7,11 +7,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const projects = [
   { name: "CareTale", description: "Baby-care reminders and a lifelong baby book.", color: "#e9c8bb" },
-  { name: "Lifeya", description: "Turning screen time into real-life activities.", color: "#cbd7c0" },
+  { name: "Lifeya", description: "Turning screen time into real-life activities.", color: "#e4e4e7" },
   { name: "Caretales Games", description: "Playful games for kids on iPhone and iPad.", color: "#e5d1a9" },
-  { name: "Notee", description: "A little Mac menu bar app for capturing notes.", color: "#cbd9d6" },
+  { name: "Notee", description: "A little Mac menu bar app for capturing notes.", color: "#dedbd6" },
   { name: "Peekee", description: "A macOS screen for keeping an eye on fleet status.", color: "#d1cbe1" },
-  { name: "Caravea Connect", description: "A CRM for the caravan industry.", color: "#c9d8e3", url: "https://connect.caravea.au/", image: "/profile/connect.webp" },
+  { name: "Caravea Connect", description: "A CRM for the caravan industry.", color: "#d6d6d6", url: "https://connect.caravea.au/", image: "/profile/connect.webp" },
   { name: "CodeCoffeeChill", description: "Explainers on code, creativity and technology.", color: "#e4d0b9" },
 ];
 

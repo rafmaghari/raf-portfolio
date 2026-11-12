@@ -29,7 +29,6 @@ test('portrait controls, portfolio and neighbouring contact form', async ({ page
   for (const [label, id] of [['Headset', 'headset-overlay'], ['Coffee mug', 'coffee-overlay'], ['Laptop', 'laptop-overlay'], ['Party mode', 'party-overlay'], ['Day/night', 'night-overlay']] as const) {
     const control = page.getByRole('button', { name: new RegExp(`^${label}`) });
     await control.click(); await expect(control).toHaveAttribute('aria-pressed', 'true'); await expect(page.getByTestId(id)).toBeVisible();
-    if (id === 'night-overlay') await expect(control).toHaveCSS('color', 'rgb(22, 60, 50)');
     await shot(id);
     await control.click(); await expect(control).toHaveAttribute('aria-pressed', 'false'); await expect(page.getByTestId(id)).toHaveCount(0);
   }
@@ -105,4 +104,40 @@ test('portrait controls, portfolio and neighbouring contact form', async ({ page
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   }
   expect(errors).toEqual([]);
+});
+
+test('black accents remain legible in both themes and all control directions', async ({ page }, testInfo) => {
+  for (const theme of ['light', 'dark'] as const) {
+    await page.emulateMedia({ colorScheme: theme, reducedMotion: 'reduce' });
+    for (const direction of ['1', '2', '3']) {
+      await page.goto(`/?controls=${direction}`);
+      const controls = page.getByTestId('control-design');
+      await expect(controls).toHaveAttribute('data-direction', direction);
+      await expect(page.locator('.profile-hero')).toHaveCSS('background-color', theme === 'dark' ? 'rgb(24, 24, 27)' : 'rgb(238, 233, 223)');
+      await expect(page.getByRole('navigation', {name: 'Quick navigation'})).toHaveCSS('background-color', 'rgb(23, 23, 23)');
+      const cap = page.getByRole('button', {name: 'Cap'});
+      await cap.click(); await expect(cap).toHaveAttribute('aria-pressed', 'true');
+      await expect(page.getByTestId('cap-overlay')).toBeVisible(); await expect(page.getByTestId('cap-overlay')).toHaveCSS('opacity', '1');
+      await expect(cap).toHaveCSS('background-color', direction === '3' ? 'rgb(250, 250, 249)' : 'rgb(23, 23, 23)');
+      if (theme === 'dark' && direction !== '3') await expect(cap).toHaveCSS('border-top-color', 'rgb(163, 163, 163)');
+      const contrast = await cap.evaluate(element => {
+        const style = getComputedStyle(element);
+        const rgb = (value: string) => value.match(/\d+/g)!.slice(0, 3).map(Number).map(c => { const v = c / 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; });
+        const luminance = (value: string) => { const [r,g,b] = rgb(value); return .2126*r + .7152*g + .0722*b; };
+        const a = luminance(style.color), b = luminance(style.backgroundColor);
+        return (Math.max(a,b) + .05) / (Math.min(a,b) + .05);
+      });
+      expect(contrast).toBeGreaterThanOrEqual(4.5);
+      const footerContrast = await page.getByRole('contentinfo').getByRole('link', {name: 'GitHub'}).evaluate(element => {
+        const rgb = (value: string) => value.match(/\d+/g)!.slice(0, 3).map(Number).map(c => { const v = c / 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; });
+        const lum = (value: string) => { const [r,g,b] = rgb(value); return .2126*r + .7152*g + .0722*b; };
+        const a = lum(getComputedStyle(element).color), b = lum(getComputedStyle(element.closest('footer')!).backgroundColor);
+        return (Math.max(a,b) + .05) / (Math.min(a,b) + .05);
+      });
+      expect(footerContrast).toBeGreaterThanOrEqual(4.5);
+      await page.screenshot({path: testInfo.outputPath(`black-${theme}-${direction}.png`)});
+      await page.getByRole('button', {name: 'Day/night'}).click();
+      await expect(page.locator('.profile-hero')).toHaveCSS('background-color', 'rgb(24, 24, 27)');
+    }
+  }
 });
