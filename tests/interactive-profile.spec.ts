@@ -5,7 +5,7 @@ const items = [
   ['Coffee mug', 'coffee-overlay'], ['Laptop', 'laptop-overlay'], ['Party mode', 'party-overlay'],
   ['Day/night', 'night-overlay'], ['Fireworks', 'fireworks-overlay'], ['Cat', 'cat-overlay'],
   ['Rubber duck', 'duck-overlay'], ['Balloons', 'balloons-overlay'], ['Snow', 'snow-overlay'],
-  ['Coat and tie', 'coat-overlay'], ['Beard', 'beard-overlay'], ['Mustache', 'mustache-overlay'],
+  ['Coat and tie', 'coat-overlay'],
 ] as const;
 
 test('inventory equips all portrait items and preserves portfolio and contact', async ({ page }, info) => {
@@ -22,10 +22,17 @@ test('inventory equips all portrait items and preserves portfolio and contact', 
   await bag.click();
   const dialog = page.getByRole('dialog', {name: 'Inventory'});
   await expect(dialog).toBeVisible();
-  const slots = dialog.getByRole('button', {name: /^(Glasses:|Cap$|Family$|Headset$|Coffee mug$|Laptop$|Party mode$|Day\/night$|Fireworks$|Cat$|Rubber duck$|Balloons$|Snow$|Coat and tie$|Beard$|Mustache$)/});
-  await expect(slots).toHaveCount(16);
+  const slots = dialog.getByRole('button', {name: /^(Glasses:|Cap$|Family$|Headset$|Coffee mug$|Laptop$|Party mode$|Day\/night$|Fireworks$|Cat$|Rubber duck$|Balloons$|Snow$|Coat and tie$)/});
+  await expect(slots).toHaveCount(14);
   for (const slot of await slots.all()) { const box = (await slot.boundingBox())!; expect(box.width).toBeGreaterThanOrEqual(44); expect(box.height).toBeGreaterThanOrEqual(44); }
   await shot('inventory');
+  await dialog.getByRole('button',{name:'Fireworks',exact:true}).click(); await dialog.getByRole('button',{name:'Coat and tie',exact:true}).click();
+  const stage = (await page.getByTestId('portrait').boundingBox())!, panel = (await page.locator('.inventory-panel').boundingBox())!;
+  await expect(page.getByTestId('fireworks-overlay')).toBeVisible();
+  expect(await page.evaluate(() => [...document.querySelectorAll('*')].some(e => { const c = getComputedStyle(e); return c.backdropFilter !== 'none' && c.backdropFilter !== '' && !e.closest('nav') ; }))).toBe(false);
+  expect(stage.x + stage.width <= panel.x || stage.y + stage.height <= panel.y || panel.x + panel.width <= stage.x || panel.y + panel.height <= stage.y).toBe(true);
+  await shot('inventory-effects');
+  await dialog.getByRole('button',{name:'Fireworks',exact:true}).click(); await dialog.getByRole('button',{name:'Coat and tie',exact:true}).click();
   for (const [label, id] of items) {
     const slot = dialog.getByRole('button', {name: label, exact: true});
     await slot.click(); await expect(slot).toHaveAttribute('aria-pressed', 'true'); await expect(page.getByTestId(id).first()).toBeVisible();
@@ -44,7 +51,7 @@ test('inventory equips all portrait items and preserves portfolio and contact', 
   }
   await dialog.getByRole('button', {name: /^Glasses:/}).click(); await expect(page.getByTestId('glasses-overlay')).toHaveCount(0);
   const keyboardCap = dialog.getByRole('button', {name:'Cap', exact:true}); await keyboardCap.focus(); await page.keyboard.press('Space'); await expect(keyboardCap).toHaveAttribute('aria-pressed','true'); await page.keyboard.press('Space'); await expect(keyboardCap).toHaveAttribute('aria-pressed','false');
-  await page.getByTestId('inventory-backdrop').click({position:{x:5,y:5}}); await expect(dialog).toHaveCount(0);
+  await page.getByTestId("inventory-dismiss").click({position:{x:5,y:5}}); await expect(dialog).toHaveCount(0);
   await page.emulateMedia({reducedMotion:'reduce'}); await bag.click();
   for (const [label, id] of items.slice(7)) { await dialog.getByRole('button',{name:label,exact:true}).click(); await expect(page.getByTestId(id)).toBeVisible(); const animated = page.getByTestId(id).locator('[data-motion]'); for (const child of await animated.all()) await expect(child).toHaveCSS('animation-name','none'); await dialog.getByRole('button',{name:label,exact:true}).click(); }
   await page.keyboard.press('Escape');

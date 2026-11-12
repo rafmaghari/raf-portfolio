@@ -92,7 +92,7 @@
 .inventory-trigger small { margin-top: 3px; color: #d4d4d4; font-size: 10px; }
 .inventory-trigger-arrow { margin-left: auto; font-size: 20px; }
 .inventory-dialog { position: fixed; inset: 0; z-index: 100; }
-.inventory-backdrop { position: fixed; inset: 0; background: #0004; }
+.inventory-dismiss { position: fixed; inset: 0; background: transparent; }
 .inventory-position { position: fixed; inset: 0; display: flex; justify-content: flex-end; align-items: center; padding: 24px; pointer-events: none; }
 .inventory-panel { pointer-events: auto; width: min(460px, 100%); max-height: calc(100dvh - 48px); overflow-y: auto; padding: 23px; border-radius: 22px; background: #fafaf9; color: #171717; box-shadow: 0 16px 55px #0004; }
 .inventory-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
@@ -121,8 +121,7 @@
 .dark .inventory-slot[aria-pressed=true] .inventory-slot-state { color: #525252; }
 .dark .inventory-trigger, .is-night .inventory-trigger { border: 1px solid #a3a3a3; }
 .stage-effect { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-.extra-coat { position: absolute; left: 0; bottom: 0; width: 100%; height: 27%; z-index: 4; pointer-events: none; }
-.extra-facial-hair { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
+.extra-coat { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 4; pointer-events: none; }
 .extra-cat { position: absolute; left: -2%; bottom: 5%; width: 31%; z-index: 5; pointer-events: none; }
 .extra-duck { position: absolute; right: 1%; bottom: 5%; width: 24%; z-index: 5; pointer-events: none; }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) { .inventory-trigger, .inventory-slot { transition: transform 160ms cubic-bezier(.23,1,.32,1), background-color 160ms ease; } .inventory-trigger:hover, .inventory-slot:hover { transform: translateY(-2px); } }

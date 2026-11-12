@@ -9,7 +9,7 @@ const controls: {key: ControlKey; label: string}[] = [
   {key:"glasses",label:"Glasses"},{key:"cap",label:"Cap"},{key:"family",label:"Family"},{key:"headset",label:"Headset"},
   {key:"coffee",label:"Coffee mug"},{key:"laptop",label:"Laptop"},{key:"party",label:"Party mode"},{key:"night",label:"Day/night"},
   {key:"fireworks",label:"Fireworks"},{key:"cat",label:"Cat"},{key:"duck",label:"Rubber duck"},{key:"balloons",label:"Balloons"},
-  {key:"snow",label:"Snow"},{key:"coat",label:"Coat and tie"},{key:"beard",label:"Beard"},{key:"mustache",label:"Mustache"},
+  {key:"snow",label:"Snow"},{key:"coat",label:"Coat and tie"},
 ];
 
 function ControlIcon({ name }: { name: ControlKey | "bag" }) {
@@ -29,8 +29,6 @@ function ControlIcon({ name }: { name: ControlKey | "bag" }) {
     balloons: <><ellipse cx="8" cy="8" rx="4" ry="6"/><ellipse cx="17" cy="9" rx="4" ry="6"/><path d="M8 14q-3 4 2 8m7-7q-3 4 0 7"/></>,
     snow: <><path d="M12 2v20M3.3 7l17.4 10M3.3 17 20.7 7M9 4l3 3 3-3M9 20l3-3 3 3"/></>,
     coat: <><path d="M5 4h14l3 17H2zM8 4l4 8 4-8M10 8l2 2 2-2M12 10l-2 8 2 2 2-2z"/></>,
-    beard: <><path d="M5 10v3q0 7 7 9 7-2 7-9v-3M8 14l2 2m6-2-2 2M9 19h6"/></>,
-    mustache: <><path d="M2 12q2 3 5 0 3-3 5 0 2-3 5 0 3 3 5 0-1 6-6 6-3 0-4-3-1 3-4 3-5 0-6-6z"/></>,
   };
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
 }
@@ -40,11 +38,11 @@ export default function ProfileControls(props: Props) {
   const toggle = (key: ControlKey) => key === "glasses" ? props.onGlasses() : key === "cap" ? props.onCap() : key === "family" ? props.onFamily() : props.onExtra(key);
   const equipped = controls.filter(item => active(item.key)).length;
   return <div className="inventory-anchor">
-    <button type="button" className="inventory-trigger" aria-label="Open inventory" onClick={() => props.onOpenChange(true)}><span className="inventory-trigger-icon"><ControlIcon name="bag" /></span><span><strong>Open inventory</strong><small>{equipped ? `${equipped} equipped` : "16 things to play with"}</small></span><span aria-hidden="true" className="inventory-trigger-arrow">↗</span></button>
+    <button type="button" className="inventory-trigger" aria-label="Open inventory" onClick={() => props.onOpenChange(true)}><span className="inventory-trigger-icon"><ControlIcon name="bag" /></span><span><strong>Open inventory</strong><small>{equipped ? `${equipped} equipped` : "14 things to play with"}</small></span><span aria-hidden="true" className="inventory-trigger-arrow">↗</span></button>
     <Dialog open={props.open} onClose={() => props.onOpenChange(false)} className="inventory-dialog">
-      <div data-testid="inventory-backdrop" className="inventory-backdrop" aria-hidden="true" onClick={() => props.onOpenChange(false)} />
+      <div data-testid="inventory-dismiss" className="inventory-dismiss" aria-hidden="true" onClick={() => props.onOpenChange(false)} />
       <div className="inventory-position"><DialogPanel className="inventory-panel">
-        <div className="inventory-heading"><div><p>RAF&apos;S KIT <span>·</span> 16 ITEMS</p><DialogTitle>Inventory<span>.</span></DialogTitle></div><button type="button" className="inventory-close" aria-label="Close inventory" onClick={() => props.onOpenChange(false)}>×</button></div>
+        <div className="inventory-heading"><div><p>RAF&apos;S KIT <span>·</span> 14 ITEMS</p><DialogTitle>Inventory<span>.</span></DialogTitle></div><button type="button" className="inventory-close" aria-label="Close inventory" onClick={() => props.onOpenChange(false)}>×</button></div>
         <p className="inventory-description">Pick an item to equip it. Tap again to put it away.</p>
         <div className="inventory-grid" role="group" aria-label="Portrait items">{controls.map(({key,label}, index) => <button key={key} type="button" className={`inventory-slot rarity-${index % 4}`} aria-pressed={active(key)} aria-label={key === "glasses" ? `Glasses: ${props.glassesName}. Change style` : label} onClick={() => toggle(key)}><span className="inventory-slot-icon"><ControlIcon name={key} /></span><span className="inventory-slot-label">{label}</span><span className="inventory-slot-state" aria-hidden="true">{active(key) ? "Equipped" : "Equip"}</span></button>)}</div>
       </DialogPanel></div>

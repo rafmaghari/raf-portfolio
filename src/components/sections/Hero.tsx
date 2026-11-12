@@ -21,7 +21,7 @@ export default function Hero() {
   const [glasses, setGlasses] = useState(0);
   const [cap, setCap] = useState(false);
   const [family, setFamily] = useState(false);
-  const [extras, setExtras] = useState<ExtraState>({headset: false, coffee: false, laptop: false, party: false, night: false, fireworks: false, cat: false, duck: false, balloons: false, snow: false, coat: false, beard: false, mustache: false});
+  const [extras, setExtras] = useState<ExtraState>({headset: false, coffee: false, laptop: false, party: false, night: false, fireworks: false, cat: false, duck: false, balloons: false, snow: false, coat: false});
   const toggleExtra = (key: Extra) => setExtras(current => ({...current, [key]: !current[key]}));
   const reduced = useReducedMotion();
   const transition = reduced ? { duration: 0 } : { type: "spring" as const, duration: .5, bounce: .2 };
