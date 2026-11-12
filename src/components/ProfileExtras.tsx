@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
-export type Extra = "headset" | "coffee" | "laptop" | "party" | "night" | "fireworks" | "cat" | "duck" | "balloons" | "snow" | "coat";
+export type Extra = "headset" | "coffee" | "laptop" | "party" | "night" | "fireworks" | "cat" | "duck" | "balloons" | "snow" | "coat" | "roll" | "dvd";
 export type ExtraState = Record<Extra, boolean>;
 
 export function NightSky({ enabled }: { enabled: boolean }) {
