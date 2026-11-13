@@ -103,6 +103,37 @@
     "title": "Recent projects",
     "projects": [
       {
+        "title": "Conect.au platform",
+        "summary": "A connected workspace for the caravan industry.",
+        "description": "Caravan businesses need a shared place to manage their operations. Raf contributed full-stack development to Conect.au, a Laravel and React platform with CRM, inventory and company access-management tools. His work includes bulk module access and API management.",
+        "image": "/conect-au.webp",
+        "tech": ["Laravel", "React", "Inertia", "TypeScript"],
+        "year": "2026",
+        "link": "https://conect.au",
+        "client": "Caravan industry platform",
+        "private": false
+      },
+      {
+        "title": "Conect.au mobile app",
+        "summary": "An early mobile foundation for Conect.au.",
+        "description": "To explore a mobile experience for Conect.au, Raf created an Expo and React Native app foundation. It includes a sign-in screen, navigation and a mock authentication flow; the current source uses a simulated session rather than a live API.",
+        "tech": ["React Native", "Expo", "TypeScript", "Zustand"],
+        "year": "2026",
+        "client": "Mobile app prototype",
+        "private": true
+      },
+      {
+        "title": "Caravea",
+        "summary": "A marketplace for discovering caravans across Australia.",
+        "description": "Finding a caravan means comparing models, locations and stock. Raf contributed to Caravea's Next.js marketplace, where visitors can browse listings, filter their search and explore caravan details and 3D tours.",
+        "image": "/caravea-au.webp",
+        "tech": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+        "year": "2025",
+        "link": "https://caravea.au",
+        "client": "Caravan marketplace",
+        "private": false
+      },
+      {
         "title": "GiftShark",
         "description": "A gifting and donation platform enabling seamless gift-giving experiences. Built with real-time features and comprehensive mailing integrations.",
         "image": "/project1.jpg",
