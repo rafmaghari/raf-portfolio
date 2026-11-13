@@ -3,6 +3,7 @@
 This file is the project's committed home for project-intrinsic agent knowledge: build, test, release, architecture, and sharp-edge notes that should travel with the code.
 
 - Build and lint commands are in `package.json`; browser test targets are in `playwright.config.ts`.
+- Portfolio project images can fail even when a path is present; cover load errors as well as missing paths in `tests/recent-projects.spec.ts`.
 
 ## Maintaining this file
 

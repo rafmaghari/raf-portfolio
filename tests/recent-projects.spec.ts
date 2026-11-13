@@ -3,6 +3,13 @@ import { expect, test } from '@playwright/test';
 test.use({ video: 'on', trace: 'on' });
 
 test('recent projects show their details and respect privacy', async ({ page }) => {
+  await page.route('**/_next/image?**', async route => {
+    if (new URL(route.request().url()).searchParams.get('url') === '/project1.jpg') {
+      await route.abort();
+    } else {
+      await route.continue();
+    }
+  });
   await page.goto('/#portfolio');
   const cards = page.locator('#portfolio article');
   await expect(cards.locator('h3').allTextContents()).resolves.toEqual([
@@ -24,5 +31,9 @@ test('recent projects show their details and respect privacy', async ({ page }) 
   await cards.nth(2).scrollIntoViewIfNeeded();
   await expect(cards.nth(2)).toContainText('Full-stack Engineer and Tech Lead');
   await expect(cards.nth(2).getByRole('link', { name: 'View project' })).toHaveAttribute('href', 'https://caravea.au');
+  await page.waitForTimeout(1200);
+  await cards.nth(3).scrollIntoViewIfNeeded();
+  await expect(cards.nth(3).getByRole('img', { name: 'Project image unavailable' })).toBeVisible();
+  await expect(cards.nth(3).getByRole('img', { name: 'GiftShark project preview' })).toHaveCount(0);
   await page.waitForTimeout(1200);
 });
