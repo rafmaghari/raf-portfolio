@@ -3,8 +3,21 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import config from "@/config.json";
+import ProjectImage from "@/components/ProjectImage";
 
-const { projects } = config.portfolio;
+type Project = {
+  title: string;
+  summary?: string;
+  description: string;
+  image?: string;
+  tech: string[];
+  year?: string;
+  link?: string;
+  client: string;
+  private?: boolean;
+};
+
+const projects: Project[] = config.portfolio.projects;
 
 const Portfolio = () => {
   const [ref, inView] = useInView({
@@ -37,13 +50,18 @@ const Portfolio = () => {
                 transition={{ duration: 0.45, delay: index * 0.05 }}
                 className="group rounded-2xl border border-zinc-200/90 dark:border-zinc-800 bg-[#fafaf9] dark:bg-zinc-950/50 overflow-hidden hover:border-zinc-600/50 dark:hover:border-zinc-400/50 transition-colors"
               >
+                <ProjectImage src={project.image} title={project.title} />
                 <div className="p-6 sm:p-7">
-                  <p className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2">
-                    {project.client}
-                  </p>
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <p className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+                      {project.client}{project.year ? ` · ${project.year}` : ""}
+                    </p>
+                    {project.private && <span className="rounded-md bg-zinc-200 px-2 py-1 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-200">Private project</span>}
+                  </div>
                   <h3 className="font-display text-xl font-bold text-zinc-900 dark:text-white mb-3 group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition-colors">
                     {project.title}
                   </h3>
+                  {project.summary && <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200 mb-2">{project.summary}</p>}
                   <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mb-5">
                     {project.description}
                   </p>
@@ -62,7 +80,7 @@ const Portfolio = () => {
                       </span>
                     ) : null}
                   </div>
-                  <a
+                  {!project.private && project.link && <a
                     href={project.link}
                     className="inline-flex items-center text-sm font-medium text-zinc-900 dark:text-zinc-100 hover:underline underline-offset-4"
                     target="_blank"
@@ -72,7 +90,7 @@ const Portfolio = () => {
                     <span className="ml-1" aria-hidden>
                       →
                     </span>
-                  </a>
+                  </a>}
                 </div>
               </motion.article>
             ))}
