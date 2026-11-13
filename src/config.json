@@ -105,7 +105,7 @@
       {
         "title": "Conect.au platform",
         "summary": "A connected workspace for the caravan industry.",
-        "description": "Caravan businesses need a shared place to manage their operations. Raf contributed full-stack development to Conect.au, a Laravel and React platform with CRM, inventory and company access-management tools. His work includes bulk module access and API management.",
+        "description": "Caravan businesses need a shared place to manage their operations. As Full-stack Engineer and Tech Lead, Raf led architecture and delivery and built across the stack for Conect.au, a Laravel and React platform with CRM, inventory and company access-management tools. His work includes bulk module access and API management.",
         "image": "/conect-au.webp",
         "tech": ["Laravel", "React", "Inertia", "TypeScript"],
         "year": "2026",
@@ -115,17 +115,17 @@
       },
       {
         "title": "Conect.au mobile app",
-        "summary": "An early mobile foundation for Conect.au.",
-        "description": "To explore a mobile experience for Conect.au, Raf created an Expo and React Native app foundation. It includes a sign-in screen, navigation and a mock authentication flow; the current source uses a simulated session rather than a live API.",
+        "summary": "A mobile CRM for the caravan industry.",
+        "description": "Caravan teams need to manage customer relationships away from their desks. As Full-stack Engineer and Tech Lead, Raf led architecture and delivery and built across the stack for the Conect.au mobile app. It brings together leads, contacts, pipelines, a CRM inbox and Twilio voice calling in a React Native and Expo experience.",
         "tech": ["React Native", "Expo", "TypeScript", "Zustand"],
         "year": "2026",
-        "client": "Mobile app prototype",
+        "client": "Mobile CRM",
         "private": true
       },
       {
         "title": "Caravea",
         "summary": "A marketplace for discovering caravans across Australia.",
-        "description": "Finding a caravan means comparing models, locations and stock. Raf contributed to Caravea's Next.js marketplace, where visitors can browse listings, filter their search and explore caravan details and 3D tours.",
+        "description": "Finding a caravan means comparing models, locations and stock. As Full-stack Engineer and Tech Lead, Raf led architecture and delivery and built across the stack for Caravea's Next.js marketplace, where visitors can browse listings, filter their search and explore caravan details and 3D tours.",
         "image": "/caravea-au.webp",
         "tech": ["Next.js", "React", "TypeScript", "Tailwind CSS"],
         "year": "2025",
