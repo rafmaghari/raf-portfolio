@@ -48,7 +48,12 @@
           { "name": "VueJS", "level": 95 },
           { "name": "NextJS", "level": 90 },
           { "name": "Node.js/Express", "level": 85 },
-          { "name": "Yii/CodeIgniter", "level": 85 }
+          { "name": "Yii/CodeIgniter", "level": 85 },
+          { "name": "TypeScript" },
+          { "name": "Inertia.js" },
+          { "name": "Python (FastAPI)" },
+          { "name": "Swift / SwiftUI" },
+          { "name": "React Native (Expo)" }
         ]
       },
       {
@@ -60,7 +65,14 @@
           { "name": "Cashier", "level": 85 },
           { "name": "Telescope", "level": 90 },
           { "name": "Forge", "level": 90 },
-          { "name": "Laravel Echo", "level": 85 }
+          { "name": "Laravel Echo", "level": 85 },
+          { "name": "Reverb" },
+          { "name": "Pulse" },
+          { "name": "Pennant" },
+          { "name": "Sail" },
+          { "name": "Pint" },
+          { "name": "Laravel AI" },
+          { "name": "Ploi" }
         ]
       },
       {
@@ -72,7 +84,39 @@
           { "name": "Vercel", "level": 90 },
           { "name": "CloudFlare", "level": 85 },
           { "name": "Docker", "level": 90 },
-          { "name": "CI/CD (Gitlab Pipeline, CodePipeline, Github Actions)", "level": 90 }
+          { "name": "CI/CD (Gitlab Pipeline, CodePipeline, Github Actions)", "level": 90 },
+          { "name": "Kubernetes (DigitalOcean DOKS)" },
+          { "name": "Helm" },
+          { "name": "Temporal" },
+          { "name": "PostgreSQL" },
+          { "name": "MySQL" },
+          { "name": "Redis" },
+          { "name": "Coolify" },
+          { "name": "nginx" }
+        ]
+      },
+      {
+        "name": "Frontend & UI",
+        "skills": [
+          { "name": "Tailwind CSS", "level": 95 },
+          { "name": "Bootstrap", "level": 90 },
+          { "name": "shadcn/ui" },
+          { "name": "Radix UI" },
+          { "name": "Zustand" },
+          { "name": "TanStack" },
+          { "name": "GSAP" },
+          { "name": "Tiptap" },
+          { "name": "Strapi (CMS)" }
+        ]
+      },
+      {
+        "name": "Testing",
+        "skills": [
+          { "name": "Playwright" },
+          { "name": "Vitest" },
+          { "name": "Jest" },
+          { "name": "XCUITest" },
+          { "name": "Maestro (mobile)" }
         ]
       },
       {
@@ -83,7 +127,9 @@
           { "name": "Mailgun/Sendgrid", "level": 90 },
           { "name": "Mailchimp", "level": 85 },
           { "name": "Nylas", "level": 80 },
-          { "name": "Sentry/Flareio", "level": 90 }
+          { "name": "Sentry/Flareio", "level": 90 },
+          { "name": "Twilio Voice", "level": 0 },
+          { "name": "OpenAI", "level": 0 }
         ]
       },
       {
@@ -92,9 +138,7 @@
           { "name": "PHPStorm", "level": 95 },
           { "name": "Visual Studio Code", "level": 95 },
           { "name": "DataGrip", "level": 90 },
-          { "name": "Vim", "level": 85 },
-          { "name": "Tailwind CSS", "level": 95 },
-          { "name": "Bootstrap", "level": 90 }
+          { "name": "Vim", "level": 85 }
         ]
       }
     ]
