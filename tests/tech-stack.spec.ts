@@ -18,12 +18,14 @@ test('visitors can explore the updated tech stack', async ({ page }) => {
   };
   await expect(section.locator('h3')).toHaveText(Object.keys(groups));
   for (const [name, skills] of Object.entries(groups)) {
-    const group = section.locator('div').filter({ has: section.getByRole('heading', { name, exact: true }) }).last();
+    const group = section.getByRole('heading', { name, exact: true }).locator('..');
+    await group.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
     for (const skill of skills) {
       await expect(group.getByText(skill, { exact: true })).toBeVisible();
     }
   }
-  const tools = section.locator('div').filter({ has: section.getByRole('heading', { name: 'Development Tools', exact: true }) }).last();
+  const tools = section.getByRole('heading', { name: 'Development Tools', exact: true }).locator('..');
   await expect(tools.getByText('Tailwind CSS', { exact: true })).toHaveCount(0);
   await expect(tools.getByText('Bootstrap', { exact: true })).toHaveCount(0);
 });
