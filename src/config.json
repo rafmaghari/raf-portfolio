@@ -117,10 +117,18 @@
         "title": "Conect.au mobile app",
         "summary": "A mobile CRM for the caravan industry.",
         "description": "Caravan teams need to manage customer relationships away from their desks. As Full-stack Engineer and Tech Lead, Raf led architecture and delivery and built across the stack for the Conect.au mobile app. It brings together leads, contacts, pipelines, a CRM inbox and Twilio voice calling in a React Native and Expo experience.",
+        "screenshots": [
+          { "src": "/conect-dms/screen-1.webp", "alt": "Conect DMS screenshot showing CRM tools" },
+          { "src": "/conect-dms/screen-2.webp", "alt": "Conect DMS screenshot showing lead details" },
+          { "src": "/conect-dms/screen-3.webp", "alt": "Conect DMS screenshot showing company switching" }
+        ],
+        "links": {
+          "appStore": "https://apps.apple.com/au/app/conect-dms/id6805670775",
+          "playStore": "https://play.google.com/store/apps/details?id=au.caravea.conect"
+        },
         "tech": ["React Native", "Expo", "TypeScript", "Zustand"],
         "year": "2026",
-        "client": "Mobile CRM",
-        "private": true
+        "client": "Mobile CRM"
       },
       {
         "title": "Caravea",
