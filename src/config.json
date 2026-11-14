@@ -123,13 +123,12 @@
         "name": "Integrations & Services",
         "skills": [
           { "name": "Pusher", "level": 95 },
-          { "name": "Twilio", "level": 85 },
+          { "name": "Twilio (SMS, Voice)", "level": 85 },
           { "name": "Mailgun/Sendgrid", "level": 90 },
           { "name": "Mailchimp", "level": 85 },
           { "name": "Nylas", "level": 80 },
           { "name": "Sentry/Flareio", "level": 90 },
-          { "name": "Twilio Voice", "level": 0 },
-          { "name": "OpenAI", "level": 0 }
+          { "name": "OpenAI" }
         ]
       },
       {
