@@ -37,7 +37,7 @@ const Skills = () => {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {[...category.skills]
-                    .sort((a, b) => b.level - a.level)
+                    .sort((a, b) => (b.level ?? 0) - (a.level ?? 0))
                     .map((skill) => (
                       <span
                         key={skill.name}
