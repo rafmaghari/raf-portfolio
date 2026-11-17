@@ -32,9 +32,16 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           <Link
             href="/"
-            className="font-display text-lg font-bold tracking-tight text-zinc-900 dark:text-white"
+            aria-label="Raf Maghari, home"
+            className="text-zinc-900 dark:text-white [--rm-cutout:#fafaf9] dark:[--rm-cutout:#18181b]"
           >
-            RM
+            <svg aria-hidden="true" width="32" height="32" viewBox="0 0 32 32">
+              <rect x="1" y="1" width="30" height="30" rx="7" fill="currentColor" />
+              <g fill="var(--rm-cutout, #fafaf9)">
+                <path fillRule="evenodd" d="M5 8h5.5a4.5 4.5 0 0 1 2.8 8L17 24h-3.6l-3.2-7H8v7H5V8zm3 3v3h2.5a1.5 1.5 0 0 0 0-3H8z" />
+                <path d="M18 24V8h2.5l3 5 3-5H29v16h-3v-9l-2.5 4-2.5-4v9h-3z" />
+              </g>
+            </svg>
           </Link>
 
           <div className="hidden md:flex items-center gap-6 lg:gap-8">
