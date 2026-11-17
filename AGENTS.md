@@ -5,6 +5,8 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 - Build and lint commands are in `package.json`; browser test targets are in `playwright.config.ts`.
 - Portfolio project images can fail even when a path is present; cover load errors as well as missing paths in `tests/recent-projects.spec.ts`.
 
+- Tailwind version is pinned in `package-lock.json`; use explicit `min-h-[44px]` for controls (spacing-based min-height utilities are not available in this version).
+
 ## Maintaining this file
 
 Keep this file for knowledge useful to almost every future agent session in this project.
