@@ -16,7 +16,7 @@
 .profile-intro { position: relative; z-index: 3; }
 .profile-intro > p:first-child { font-size: 18px; margin-bottom: 8px; }
 .profile-intro h1 { font-family: var(--font-syne), sans-serif; font-size: clamp(42px, 5vw, 72px); line-height: 1.02; letter-spacing: -.035em; font-weight: 700; }
-.profile-intro h1 span, .work-heading h2 span { color: #171717; }
+.profile-intro h1 span { color: #171717; }
 .profile-role { margin-top: 24px; font-weight: 600; font-size: 17px; }
 .profile-copy { margin-top: 14px; max-width: 265px; font-size: 15px; line-height: 1.7; color: #525252; }
 .profile-discover { display: inline-block; border-bottom: 1px solid currentColor; margin-top: 27px; padding-bottom: 4px; font-size: 14px; font-weight: 600; }
@@ -50,37 +50,14 @@
 .family-piyang img { object-position: right bottom; }
 .family-sigi-boy { width: 43%; height: 38%; bottom: 0; right: -13%; }
 .profile-bottom-nav { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 40; display: flex; align-items: center; gap: 4px; padding: 6px; border-radius: 999px; background: #171717; color: #fff; box-shadow: 0 8px 30px #17171738; }
-.profile-bottom-nav a, .profile-bottom-nav button { border-radius: 999px; padding: 11px 17px; white-space: nowrap; font-size: 13px; font-weight: 600; }
-.profile-bottom-nav button { background: #f2eee3; color: #171717; }
+.profile-bottom-nav a { border-radius: 999px; padding: 11px 17px; white-space: nowrap; font-size: 13px; font-weight: 600; }
+.profile-bottom-nav-highlight { background: #f2eee3; color: #171717; }
 .dark .profile-bottom-nav { border: 1px solid #737373; }
-.profile-bottom-nav button span { padding-left: 5px; }
-.work-dialog { position: relative; z-index: 100; color: #171717; }
-.work-backdrop { position: fixed; inset: 0; background: #171717aa; }
-.work-position { position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; padding: 20px; }
-.work-panel { background: #f8f5ed; border-radius: 20px; padding: clamp(24px, 4vw, 44px); width: min(680px, 100%); max-height: calc(100dvh - 40px); overflow-y: auto; }
-.work-heading { display: flex; justify-content: space-between; align-items: start; gap: 15px; }
-.work-heading p { font-size: 10px; letter-spacing: .16em; font-weight: 700; color: #525252; }
-.work-heading h2 { font: 700 clamp(28px, 4vw, 42px)/1.1 var(--font-syne), sans-serif; letter-spacing: -.03em; margin-top: 8px; }
-.work-close, .work-controls button { width: 44px; height: 44px; border: 1px solid #a3a3a3; border-radius: 50%; font-size: 23px; line-height: 1; }
-.work-subtitle { margin-top: 12px; color: #525252; font-size: 14px; }
-.work-card-wrap { margin-top: 24px; touch-action: pan-y; }
-.work-card { width: 100%; min-height: 260px; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; align-items: stretch; text-align: left; cursor: pointer; }
-.work-card-name, .work-detail-art span { font: 700 clamp(32px, 5vw, 57px)/1 var(--font-syne), sans-serif; letter-spacing: -.03em; overflow-wrap: anywhere; }
-.work-card-image { width: min(45%, 240px); height: auto; align-self: flex-end; margin: 12px 0; border-radius: 6px; }
-.work-card-meta { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; font-weight: 500; }
-.work-card-meta span:last-child { font-size: 25px; }
-.work-controls { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; font-size: 13px; font-variant-numeric: tabular-nums; }
-.work-controls div { display: flex; gap: 8px; }
-.work-tip { margin-top: 8px; color: #525252; font-size: 12px; }
-.work-back { margin: 20px 0; font-size: 14px; font-weight: 600; }
-.work-detail-art { min-height: 220px; border-radius: 14px; padding: 28px; display: flex; align-items: center; }
-.work-detail h3 { margin-top: 22px; font: 700 25px var(--font-syne), sans-serif; }
-.work-detail p { margin-top: 8px; color: #525252; }
-.work-detail a { display: inline-block; margin-top: 18px; text-decoration: underline; text-underline-offset: 4px; font-weight: 600; }
-.profile-hero button:focus-visible, .profile-bottom-nav :focus-visible, .work-dialog :focus-visible { outline: 3px solid #737373; outline-offset: 3px; }
+.profile-hero button:focus-visible, .profile-bottom-nav :focus-visible { outline: 3px solid #737373; outline-offset: 3px; }
+#portfolio { scroll-margin-top: 4rem; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 @media (max-width: 900px) { .profile-hero-inner { grid-template-columns: 1fr 1.4fr; min-height: 610px; } .profile-stage { height: 420px; } }
-@media (max-width: 600px) { .profile-day-sun { width: 38px; top: 12px; right: 16px; } .profile-hero-inner { display: flex; flex-direction: column; padding: 38px 20px 42px; gap: 0; min-height: 0; text-align: center; } .profile-intro h1 { font-size: 42px; } .profile-intro > p:first-child { font-size: 15px; } .profile-role { margin-top: 12px; font-size: 15px; } .profile-copy { margin: 8px auto 0; font-size: 13px; line-height: 1.5; } .profile-discover { display: none; } .profile-stage { width: min(100%, 320px); height: 320px; margin: 0 auto; } .portrait { width: 76%; } .family-abey { left: -2%; } .family-piyang { right: -2%; } .family-sigi-boy { right: -4%; } .work-card { min-height: 220px; padding: 20px; } .work-panel { padding: 22px; } }
-@media (prefers-reduced-motion: reduce) { .profile-hero *, .work-dialog * { scroll-behavior: auto !important; } }
+@media (max-width: 600px) { .profile-day-sun { width: 38px; top: 12px; right: 16px; } .profile-hero-inner { display: flex; flex-direction: column; padding: 38px 20px 42px; gap: 0; min-height: 0; text-align: center; } .profile-intro h1 { font-size: 42px; } .profile-intro > p:first-child { font-size: 15px; } .profile-role { margin-top: 12px; font-size: 15px; } .profile-copy { margin: 8px auto 0; font-size: 13px; line-height: 1.5; } .profile-discover { display: none; } .profile-stage { width: min(100%, 320px); height: 320px; margin: 0 auto; } .portrait { width: 76%; } .family-abey { left: -2%; } .family-piyang { right: -2%; } .family-sigi-boy { right: -4%; } }
 
 /* Portrait inventory */
 .inventory-anchor { justify-self: end; width: 225px; }
