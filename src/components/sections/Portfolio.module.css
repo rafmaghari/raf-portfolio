@@ -1,0 +1,29 @@
+.portfolio :global(.selected-carousel) { max-width: 1440px; margin-inline: auto; }
+.portfolio :global(.selected-carousel:focus-visible) { outline-offset: -4px; }
+.portfolio :global(.selected-stage) {
+  display: grid;
+  grid-template-columns: min(78%, 760px);
+  justify-content: center;
+  touch-action: pan-y pinch-zoom;
+  cursor: grab;
+  user-select: none;
+}
+.portfolio :global(.selected-stage:active) { cursor: grabbing; }
+.portfolio :global(.selected-card) { grid-area: 1 / 1; min-width: 0; overflow: hidden; display: flex; flex-direction: column; }
+.portfolio :global(.selected-card > div:first-child) { flex-shrink: 0; }
+.portfolio :global(.selected-card img) { pointer-events: none; }
+/* 24px dot targets keep all eleven positions and both 44px arrows on one line at 390px. */
+.portfolio :global(.selected-dot) { width: 24px; height: 44px; display: grid; place-items: center; border-radius: 6px; }
+.portfolio :global(.selected-dot span) { width: 6px; height: 6px; border-radius: 50%; transition: background-color 160ms ease; }
+.portfolio :global(.selected-dot[aria-current=true] span) { width: 8px; height: 8px; }
+.portfolio :global(.selected-arrow) { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #d4d4d8; border-radius: 50%; }
+.portfolio :global(.selected-arrow:hover) { background: #f4f4f5; }
+:global(.dark) .portfolio :global(.selected-arrow) { border-color: #52525b; }
+:global(.dark) .portfolio :global(.selected-arrow:hover) { background: #27272a; }
+@media (min-width: 640px) { .portfolio :global(.selected-dot) { width: 30px; } }
+@media (max-width: 420px) {
+  .portfolio :global(.selected-carousel > div:nth-child(2)) { column-gap: 0; padding-inline: 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .portfolio :global(button:active) { transform: scale(.97); }
+}
