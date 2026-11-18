@@ -38,6 +38,18 @@
   },
   "skills": {
     "title": "Tech stack",
+    "core": [
+      { "name": "Laravel", "skill": "Laravel Core", "icon": "laravel", "color": "#FF2D20" },
+      { "name": "PHP", "skill": "PHP", "icon": "php", "color": "#777BB4" },
+      { "name": "Vue", "skill": "VueJS", "icon": "vuedotjs", "color": "#4FC08D" },
+      { "name": "React", "skill": "ReactJS", "icon": "react", "color": "#61DAFB" },
+      { "name": "Next.js", "skill": "NextJS", "icon": "nextdotjs", "color": "currentColor" },
+      { "name": "TypeScript", "skill": "TypeScript", "icon": "typescript", "color": "#3178C6" },
+      { "name": "Tailwind CSS", "skill": "Tailwind CSS", "icon": "tailwindcss", "color": "#06B6D4" },
+      { "name": "Swift / SwiftUI", "skill": "Swift / SwiftUI", "icon": "swift", "color": "#F05138" },
+      { "name": "AWS", "skill": "AWS (EC2, RDS, S3, Amplify, Route53)", "icon": "cloud", "color": "#FF9900" },
+      { "name": "MySQL", "skill": "MySQL", "icon": "mysql", "color": "#4479A1" }
+    ],
     "categories": [
       {
         "name": "Languages & Frameworks",
