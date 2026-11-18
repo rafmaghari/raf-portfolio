@@ -1,59 +1,71 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { useState, type CSSProperties } from "react";
 import config from "@/config.json";
+import CoreToolIcon from "@/components/CoreToolIcon";
+import styles from "./Skills.module.css";
 
 const { skills } = config;
-const skillCategories = skills.categories;
+const coreNames = new Set(skills.core.map((tool) => tool.skill));
 
-const Skills = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+export default function Skills() {
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <section
       id="skills"
-      className="border-b border-zinc-200/80 dark:border-zinc-800/80 bg-[#fafaf9] dark:bg-zinc-950"
+      className={`${styles.section} border-b border-zinc-200/80 dark:border-zinc-800/80 bg-[#fafaf9] dark:bg-zinc-950`}
     >
       <div className="section-container">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
-        >
-          <p className="section-label text-center">Capabilities</p>
-          <h2 className="heading-secondary text-center mb-14">
-            {skills.title}
-          </h2>
-          <div className="space-y-12 max-w-3xl mx-auto">
-            {skillCategories.map((category) => (
-              <div key={category.name}>
-                <h3 className="text-sm font-semibold text-zinc-900 dark:text-white mb-4">
-                  {category.name}
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {[...category.skills]
-                    .sort((a, b) => (b.level ?? 0) - (a.level ?? 0))
-                    .map((skill) => (
-                      <span
-                        key={skill.name}
-                        className="inline-flex items-center px-3.5 py-1.5 rounded-full text-sm border border-zinc-200 dark:border-zinc-700 bg-white/80 dark:bg-zinc-900/80 text-zinc-700 dark:text-zinc-300"
-                      >
-                        {skill.name}
-                      </span>
-                    ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+        <header className={styles.heading}>
+          <h2 className="heading-secondary">{skills.title}</h2>
+          <p>What I build with.</p>
+        </header>
+
+        <ul className={styles.core} aria-label="Core tools">
+          {skills.core.map((tool) => (
+            <li
+              className={styles.tile}
+              key={tool.name}
+              tabIndex={0}
+              title={tool.skill}
+              style={{ "--brand": tool.color } as CSSProperties}
+            >
+              <span className={styles.mark}><CoreToolIcon icon={tool.icon} /></span>
+              <span className={styles.name}>{tool.name}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div className={styles.disclosure}>
+          <p>And the rest of the toolkit.</p>
+          <button
+            type="button"
+            className={styles.toggle}
+            aria-expanded={expanded}
+            aria-controls="all-tools"
+            onClick={() => setExpanded((open) => !open)}
+          >
+            {expanded ? "Show fewer" : "Show all tools"}
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+              <path d={expanded ? "m5 12 5-5 5 5" : "m5 8 5 5 5-5"} />
+            </svg>
+          </button>
+        </div>
+
+        <div id="all-tools" hidden={!expanded} className={styles.allTools}>
+          {skills.categories.map((category) => (
+            <div className={styles.category} key={category.name}>
+              <h3>{category.name}</h3>
+              <ul>
+                {category.skills.filter((tool) => !coreNames.has(tool.name)).map((tool) => (
+                  <li key={tool.name}>{tool.name}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
-};
-
-export default Skills;
+}

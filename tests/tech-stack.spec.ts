@@ -2,16 +2,20 @@ import { expect, test } from '@playwright/test';
 
 test.use({ video: 'on', trace: 'on' });
 
-test('visitors can explore the updated tech stack', async ({ page }) => {
+test('visitors can explore grouped supporting tools', async ({ page }) => {
   await page.goto('/#skills');
   const section = page.locator('#skills');
   await expect(section.getByRole('heading', { name: 'Tech stack' })).toBeVisible();
 
+  const toggle = section.getByRole('button', { name: 'Show all tools', exact: true });
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await toggle.click();
+
   const groups: Record<string, string[]> = {
-    'Languages & Frameworks': ['TypeScript', 'Inertia.js', 'Python (FastAPI)', 'Swift / SwiftUI', 'React Native (Expo)'],
+    'Languages & Frameworks': ['Inertia.js', 'Python (FastAPI)', 'React Native (Expo)'],
     'Laravel Ecosystem': ['Reverb', 'Pulse', 'Pennant', 'Sail', 'Pint', 'Laravel AI', 'Ploi'],
-    'Cloud & DevOps': ['Kubernetes (DigitalOcean DOKS)', 'Helm', 'Temporal', 'PostgreSQL', 'MySQL', 'Redis', 'Coolify', 'nginx'],
-    'Frontend & UI': ['Tailwind CSS', 'Bootstrap', 'shadcn/ui', 'Radix UI', 'Zustand', 'TanStack', 'GSAP', 'Tiptap', 'Strapi (CMS)'],
+    'Cloud & DevOps': ['Kubernetes (DigitalOcean DOKS)', 'Helm', 'Temporal', 'PostgreSQL', 'Redis', 'Coolify', 'nginx'],
+    'Frontend & UI': ['Bootstrap', 'shadcn/ui', 'Radix UI', 'Zustand', 'TanStack', 'GSAP', 'Tiptap', 'Strapi (CMS)'],
     Testing: ['Playwright', 'Vitest', 'Jest', 'XCUITest', 'Maestro (mobile)'],
     'Integrations & Services': ['Twilio (SMS, Voice)', 'OpenAI', 'Sentry/Flareio'],
     'Development Tools': ['PHPStorm', 'Visual Studio Code', 'DataGrip', 'Vim'],
